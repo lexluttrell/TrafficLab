@@ -74,3 +74,9 @@ Source: https://github.com/lexluttrell/TrafficLab. Public visibility supports sh
 The initial local work had three commits, ending at `3e279f2`. The connector migration creates its own commit IDs; the original history is retained in the Mission 001 downloadable bundle. Current project work continues in this repository.
 
 The frozen OSM extract and hosted replay are stored with lossless gzip compression. The CLI accepts the compressed extract directly; the hosted browser viewer decompresses the replay. No geometry or simulation states are discarded.
+
+## Mission 002 — historical observations (in progress)
+
+[Open the observations viewer](https://lexluttrell.github.io/TrafficLab/observations.html). It accepts a local normalized JSON file without uploading it. No historical data is bundled yet. Caltrans PeMS access or authorized downloaded source files are required to complete this mission.
+
+See [Mission 002 plan and import command](docs/MISSION-002-PLAN.md). Run parser checks with `python -m unittest discover -s tests -p test_pems.py -v`. Tests use explicitly fabricated rows, never a substitute for empirical validation. Missing intervals remain gaps, zero counts remain zero, and percent-observed flags remain visible. Source speed estimates are not presented as individually measured vehicle speeds.

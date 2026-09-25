@@ -11,3 +11,6 @@ print('Pages export ready in docs/. Commit and push to publish updates.')
 
 (root/'docs'/'replay.json.gz').write_bytes(gzip.compress((source/'replay.json').read_bytes(),mtime=0))
 (root/'docs'/'replay.json').unlink(missing_ok=True)
+
+for name in ("observations.html", "observations.css", "observations.js"):
+    shutil.copyfile(root/"viewer"/name, root/"docs"/name)

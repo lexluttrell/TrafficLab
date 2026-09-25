@@ -32,3 +32,23 @@ First files: District 4 Station Metadata snapshot effective on/before a selected
 Access is the immediate blocker. Schema must be checked against downloaded source files before production acceptance. Naive local timestamps around DST changes can be ambiguous; reject transition days initially rather than invent UTC offsets. Five-minute aggregates cannot uniquely identify demand, turning movements or individual driver behavior. Mainline-only data may not support ramp inference. Adjacent stations may require extending the observation window beyond the current simulation extent, which must be a documented choice. Data redistribution terms must be checked before committing observed data to the public repository.
 
 Current status: build importer/viewer and tests while awaiting authorized data. This is preparation toward the real milestone, not a replacement for historical replay.
+
+## Import command (once source files are available)
+
+From the repository root, with dependencies installed:
+
+```sh
+python -m trafficlab.data.pems \
+  --metadata /path/to/d04_station_metadata.txt \
+  --observations /path/to/d04_text_station_5min_YYYY_MM_DD.txt.gz \
+  --date YYYY-MM-DD \
+  --metadata-date YYYY-MM-DD \
+  --output runs/observations/observations.json
+```
+
+Replace the dates with the actual observation date and metadata effective date. Metadata can also be gzipped. The scenario's bbox selects geographic candidates; it does not certify station-to-edge matches. `--district`, `--freeway`, and `--scenario` can select a different configured scope. The CLI does not log in or upload any files. Open the output using the Historical observations link on the demo. An adjacent receipt file records import time and normalized-file hash; the normalized JSON remains byte-reproducible for identical inputs.
+
+## Schema reference and checks
+Field order checked against SANDAG's PeMS processing implementation at commit `e6e125f65e45afdeceaebc4d6d0b5c92effa9e47`: https://github.com/SANDAG/PeMS-Datasets/blob/e6e125f65e45afdeceaebc4d6d0b5c92effa9e47/python/extract_parquet.py and `archive/python/main.py`. This is a primary implementation reference, not a substitute for checking actual District 4 exports. The current adapter retains station aggregate fields plus unparsed original per-lane fields; it does not yet expose lane-level observations. UTC conversion assumes Los Angeles local civil time. Source timestamp anchoring remains unverified and is labeled in every bundle. No time alignment with simulated traffic is claimed yet.
+
+Tests cover zero vs missing values, invalid numeric values, partial-observation flags, gzip input, duplicate conflicts, date and station filtering, future metadata, off-grid timestamps and DST transitions. Browser checks use fabricated fixtures only, kept out of the published observations page.

@@ -22,7 +22,7 @@ Risks: external map availability; incomplete lane/connection tags and netconvert
 - Historical replay, calibration, held-out validation, driver-population experiments and geographic generalization remain later milestones.
 
 ## Status
-Mission 001 is complete and publicly runnable at https://lexluttrell.github.io/TrafficLab/. Source is maintained at https://github.com/lexluttrell/TrafficLab. The user enabled main /docs publication on 2026-09-25. Hosted browser playback and vehicle inspection have been verified. Historical transfer notes below describe resolved blockers. No later milestone has been started.
+Mission 001 is complete and publicly runnable at https://lexluttrell.github.io/TrafficLab/. Source is maintained at https://github.com/lexluttrell/TrafficLab. The user enabled main /docs publication on 2026-09-25. Hosted browser playback and vehicle inspection have been verified. Historical transfer notes below describe resolved blockers. Mission 002 is now authorized; its importer and observations viewer are in progress, with real-data access blocked.
 
 ## Scientific status and limitations
 No measured traffic observations or calibration. OSM geometry is mapped data, not a surveyed lane inventory; conversion may infer lane widths, connections and speed limits. All demand and driver parameters are synthetic/default assumptions. No counterfactual inference is justified. Finite corridor boundaries and through-only initial demand omit local origin/destination behavior.
@@ -55,3 +55,12 @@ The repository snapshot contains the runnable Python project, frozen source/netw
 
 ## Live deployment verification — 2026-09-25
 GitHub Pages is active at https://lexluttrell.github.io/TrafficLab/, publishing main /docs. The public index, JavaScript and compressed trajectory data returned HTTP 200. A Chromium browser opened the actual public URL, decompressed the replay, scrubbed to 150 seconds and selected a vehicle; the inspector showed Krauss model details, with zero page errors. The live replay reports 600 completed trips. Mission 001 acceptance and requested public hosting are complete. Scientific status remains synthetic, uncalibrated and unsuitable for real-world counterfactual claims. Next milestone remains historical PeMS ingestion/replay foundations, pending a new work request.
+
+## Mission 002 progress — 2026-09-25
+User authorized progression after inspecting Mission 001. The plan is in `MISSION-002-PLAN.md`. Implemented a source-specific PeMS adapter and versioned observation contract, deterministic normalization, separate import receipt, source hashes, effective metadata date check, local-to-UTC timestamp handling, per-station coverage, missing-data gaps, preserved observed-percentage and invalid-value flags. Added a browser-local JSON inspection page with station selection, speed/count plots and timestamp inspection. It contains no fabricated public traffic data and does not publish user imports.
+
+Access blocker: official historical PeMS downloads require a free approved account. No authorized District 4 archive has been supplied. Scheduled a one-time ChatGPT task notification at the user's request; phone delivery depends on notification settings. Real station coverage, source timestamp anchor, station-to-SUMO mapping and actual-date replay remain unverified. Mission 002 is not complete; no calibration or later milestone is started.
+
+Schema reference: SANDAG/PeMS-Datasets at e6e125f65e45afdeceaebc4d6d0b5c92effa9e47. Eight importer tests passed using clearly fabricated fixtures, covering missing versus zero, partial/imputed flags, invalid occupancy, gzip inputs, duplicates, future metadata, DST transition rejection, station filtering and timestamp grid checks. Remaining acceptance requires genuine inputs and review of data usage/redistribution terms before public data publication.
+
+Browser verification passed for the empty state, local JSON import, missing-interval display, preserved zero counts, partial-observation flags, repeated retina-canvas rendering and mobile width. No page errors. A fabricated QA file was used only in local testing and was not added to the repository or Pages export.
