@@ -22,7 +22,7 @@ Risks: external map availability; incomplete lane/connection tags and netconvert
 - Historical replay, calibration, held-out validation, driver-population experiments and geographic generalization remain later milestones.
 
 ## Status
-Implementation in progress. GitHub authenticated as lexluttrell; exposed connector supports editing repositories but lacks repository creation. No TrafficLab repository exists among returned repositories. No unrelated repository will be repurposed.
+Mission 001 is complete and publicly runnable at https://lexluttrell.github.io/TrafficLab/. Source is maintained at https://github.com/lexluttrell/TrafficLab. The user enabled main /docs publication on 2026-09-25. Hosted browser playback and vehicle inspection have been verified. Historical transfer notes below describe resolved blockers. No later milestone has been started.
 
 ## Scientific status and limitations
 No measured traffic observations or calibration. OSM geometry is mapped data, not a surveyed lane inventory; conversion may infer lane widths, connections and speed limits. All demand and driver parameters are synthetic/default assumptions. No counterfactual inference is justified. Finite corridor boundaries and through-only initial demand omit local origin/destination behavior.
@@ -37,7 +37,7 @@ SUMO 1.27.1, seed 42: 600 inserted, 600 completed, 0 running/waiting at completi
 
 Standalone HTML opened in headless Chromium; zero page errors. Verified car click selection (car-0.12), inspector fields, pick-car, follow, zoom, fit, playback advance, end-time seek, restart, and no horizontal overflow at 390 px viewport width. Visually inspected screenshots of overview and selected-vehicle view. CLI server returned HTTP 200. Linux x86-64/Python 3.12 tested; other OS installs not exercised.
 
-Current milestone: Mission 001 runnable slice delivered, GitHub repository creation/push BLOCKED by missing creation capability in the connected tools. Local commits preserve plan, implementation and delivery changes. Do not mark the complete user request finished until the remote is created and commits are transferred. No later milestone has been implemented.
+At initial delivery, the runnable slice was complete and repository creation was blocked. This was resolved by user-created repository, completed source transfer, and the successful Pages deployment recorded below. No later milestone has been implemented.
 
 A standalone HTML with embedded actual trajectory data is generated for immediate offline interaction. It adds no alternative simulation model. Rerunning Python uses the real SUMO engine. Dependencies, frozen source, source code, instructions and local commit history accompany the handoff.
 
@@ -48,7 +48,10 @@ The user created public `lexluttrell/TrafficLab` and explicitly requested GitHub
 
 The original three local commits remain available in the original release bundle. GitHub connector migration uses a new remote commit chain starting with the plan. Repository creation is resolved. Pages configuration is pending: connected tools expose file and commit operations, but not Pages settings or a collaborator-list audit. Public repository status and owner-admin connection permissions were verified. Do not claim that the collaborator list was audited or the site is live without evidence.
 
-## Transfer recovery and current status — 2026-09-25
+## Historical transfer recovery — 2026-09-25
 Resumed the interrupted upload without rebuilding or changing Mission 001 scope. Raw OSM and hosted replay use lossless gzip for transfer/storage efficiency. The CLI handles the compressed source; the viewer decompresses replay data using the browser's DecompressionStream API. No geometry or simulation state was removed.
 
 The repository snapshot contains the runnable Python project, frozen source/network, browser viewer, tests, provenance and a ready-to-publish `/docs` export. Initial local commits are retained in the previously delivered bundle; remote migration has its own commit identifiers. Repository creation is resolved. Current remaining deployment action: Settings → Pages → Deploy from a branch → main → /docs → Save. The connector cannot change Pages settings or list all collaborators, so neither site activation nor a full collaborator audit is claimed. Public visibility is retained at the user's request.
+
+## Live deployment verification — 2026-09-25
+GitHub Pages is active at https://lexluttrell.github.io/TrafficLab/, publishing main /docs. The public index, JavaScript and compressed trajectory data returned HTTP 200. A Chromium browser opened the actual public URL, decompressed the replay, scrubbed to 150 seconds and selected a vehicle; the inspector showed Krauss model details, with zero page errors. The live replay reports 600 completed trips. Mission 001 acceptance and requested public hosting are complete. Scientific status remains synthetic, uncalibrated and unsuitable for real-world counterfactual claims. Next milestone remains historical PeMS ingestion/replay foundations, pending a new work request.
