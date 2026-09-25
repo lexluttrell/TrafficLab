@@ -1,0 +1,69 @@
+Success.
+Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurrence for edge '30098300').
+Warning: Discarding unusable type 'waterway.stream' (first occurrence for edge '473708135').
+Warning: Discarding unusable type 'waterway.drain' (first occurrence for edge '1390281301').
+Warning: Removing pt stop '271469496' on non existing edge '575424956#6'.
+Warning: Removing pt stop '5019046678' on non existing edge '23978585#1'.
+Warning: Removing pt stop '6538514183' on non existing edge '697025203#2'.
+Warning: Removing pt stop '6538539513' on non existing edge '395354816#1'.
+Warning: Removing pt stop '6538539514' on non existing edge '476001342'.
+Warning: PT line in relation 2235086 with no stops ignored. Probably OSM file is incomplete.
+Warning: from-edge '23978591' of restriction relation could not be determined
+Warning: Ignoring restriction relation '8169491'.
+Warning: from-edge '395354813' of restriction relation could not be determined
+Warning: Ignoring restriction relation '8169492'.
+Warning: direction of restriction relation could not be determined
+Warning: Ignoring restriction relation '8169517'.
+Warning: direction of restriction relation could not be determined
+Warning: Ignoring restriction relation '8169518'.
+Warning: from-edge '1426355652' of restriction relation could not be determined
+Warning: Ignoring restriction relation '8169569'.
+Warning: from-edge '1088110420' of restriction relation could not be determined
+Warning: from-edge '392794055' of restriction relation could not be determined
+Warning: PT line in relation 9372944 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 9372945 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 9373820 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 9373821 with no stops ignored. Probably OSM file is incomplete.
+Warning: No way found for reference '406988569' in relation '11083181'
+Warning: Ignoring restriction relation '11083181' with unknown via.
+Warning: direction of restriction relation could not be determined
+Warning: direction of restriction relation could not be determined
+Warning: No way found for reference '1061233978' in relation '14152196'
+Warning: No way found for reference '154918355' in relation '14152196'
+Warning: Ignoring restriction relation '14152196' with unknown via.
+Warning: direction of restriction relation could not be determined
+Warning: No way found for reference '1080529471' in relation '14376644'
+Warning: No way found for reference '1080529470' in relation '14376644'
+Warning: Ignoring restriction relation '14376644' with unknown from-way.
+Warning: Ignoring restriction relation '14376644' with unknown via.
+Warning: Cannot revise pt stop localization for pt line '8548883', which has no route edges. Ignoring!
+Warning: Removed invalid stop '6538539513' from line '8548883'.
+Warning: Removed invalid stop '6975156614' from line '8548883'.
+Warning: Cannot revise pt stop localization for pt line '9499497', which has no route edges. Ignoring!
+Warning: Removed invalid stop '6538539514' from line '9499497'.
+Warning: Could not assign stop '6538556039' to pt line '9677809' (closest edge '696300413', distance 1414.33). Ignoring!
+Warning: Could not assign stop '6538556037' to pt line '9677809' (closest edge '696300413', distance 1091.92). Ignoring!
+Warning: Could not assign stop '6538556031' to pt line '9677809' (closest edge '696300413', distance 637.44). Ignoring!
+Warning: Could not assign stop '6538556029' to pt line '9677809' (closest edge '696300413', distance 242.78). Ignoring!
+Warning: Could not assign stop '6538539514' to pt line '9677809' (closest edge '392794066', distance 285.11). Ignoring!
+Warning: Removed invalid stop '6538556039' from line '9677809'.
+Warning: Removed invalid stop '6538556037' from line '9677809'.
+Warning: Cannot revise pt stop localization for pt line '9680874', which has no route edges. Ignoring!
+Warning: Cannot revise pt stop localization for pt line '9680875', which has no route edges. Ignoring!
+Warning: Cannot revise pt stop localization for pt line '9680876', which has no route edges. Ignoring!
+Warning: Found sharp turn with radius 8.90 at the start of edge '7853078#1'.
+Warning: Shape for junction '257540460' has distance 49.26 to its given position.
+Warning: Shape for junction '257540462' has distance 33.57 to its given position.
+Warning: Shape for junction '57785730' has distance 44.44 to its given position.
+Warning: Shape for junction '57787552' has distance 48.75 to its given position.
+Warning: Shape for junction '57792579' has distance 24.79 to its given position.
+Warning: Speed of straight connection '392794067_0->395352202_0' reduced by 7.35 due to turning radius of 60.82 (length=8.19, angle=22.82).
+Warning: Removed 102 pt stops because they could not be assigned to the network
+Warning: 20 total messages of type: Cannot revise pt stop localization for pt line '%', which has no route edges. Ignoring!
+Warning: 25 total messages of type: Could not assign stop '%' to pt line '%' (closest edge '%', distance %). Ignoring!
+Warning: 26 total messages of type: Ignoring restriction relation '%'.
+Warning: 26 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
+Warning: 146 total messages of type: Removed invalid stop '%' from line '%'.
+Warning: 155 total messages of type: Removing pt stop '%' on non existing edge '%'.
+Warning: 7 total messages of type: direction of restriction relation could not be determined%
+Warning: 19 total messages of type: from-edge '%' of restriction relation could not be determined

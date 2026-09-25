@@ -1,0 +1,23 @@
+{
+  "retrieved_date_utc": "2026-09-25",
+  "source_extent_note": "OSM returns complete ways intersecting bbox; geometry can extend outside it.",
+  "source_url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.305,37.988,-122.27,38.01",
+  "source_sha256": "6f066155a0af12c0745c8d6818ba4807d135cdbbc8834faf62f2eac884263c20",
+  "network_sha256": "53dd09a29ad8261f7c1d0678f9ebf3f95d839828023cc176d045c11bbc3e05da",
+  "attribution": "\u00a9 OpenStreetMap contributors, ODbL 1.0",
+  "conversion": [
+    "--osm-files",
+    "/workspace/scratch/0016e6a3814a/TrafficLab/scenarios/pinole/source.osm.xml",
+    "--keep-edges.by-type",
+    "highway.motorway,highway.motorway_link",
+    "--remove-edges.isolated",
+    "true",
+    "--output.street-names",
+    "true",
+    "--output-file",
+    "/workspace/scratch/0016e6a3814a/TrafficLab/scenarios/pinole/network.net.xml"
+  ],
+  "sumo_version": "Eclipse SUMO sumo 1.27.1",
+  "stored_source_sha256": "9470549abcc3db92a4ef12f236516ac8d4ef1a74aa266b065b9656cba5450bbe",
+  "source_storage": "Lossless gzip; source_sha256 identifies the decompressed original OSM XML."
+}

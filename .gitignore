@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+runs/
+
+scenarios/*/source.osm.xml
+docs/replay.json

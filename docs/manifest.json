@@ -1,0 +1,86 @@
+{
+  "scenario": "I-80 \u00b7 Pinole",
+  "seed": 42,
+  "scientific_status": "Synthetic demand \u00b7 uncalibrated",
+  "sumo_version": "Eclipse SUMO sumo 1.27.1",
+  "network_sha256": "53dd09a29ad8261f7c1d0678f9ebf3f95d839828023cc176d045c11bbc3e05da",
+  "demand_sha256": "21ad3c76c9255fb47c8ca0fd741df39c3789aa9427837f77c86e77634acb2a12",
+  "routes": [
+    {
+      "id": "through-0",
+      "length_m": 3813.62,
+      "edges": [
+        "4598065",
+        "1193463510",
+        "1193463509#0",
+        "1193463509#1",
+        "395352202",
+        "395352204",
+        "23978794",
+        "23978795#0",
+        "23978795#1",
+        "124952150",
+        "395350876"
+      ]
+    },
+    {
+      "id": "through-1",
+      "length_m": 3625.4,
+      "edges": [
+        "395350875",
+        "23990762",
+        "930641336",
+        "23978792",
+        "23978793",
+        "395352203",
+        "395352201",
+        "1193463508",
+        "1193463507"
+      ]
+    }
+  ],
+  "report": {
+    "completed_trips": 600,
+    "inserted": 600,
+    "running": 0,
+    "waiting": 0,
+    "teleports": 0,
+    "collisions": 0
+  },
+  "command": [
+    "-n",
+    "/workspace/scratch/0016e6a3814a/TrafficLab/scenarios/pinole/network.net.xml",
+    "-r",
+    "/workspace/scratch/0016e6a3814a/TrafficLab/runs/pinole/demand.rou.xml",
+    "--seed",
+    "42",
+    "--step-length",
+    "0.2",
+    "--end",
+    "1200",
+    "--fcd-output",
+    "/workspace/scratch/0016e6a3814a/TrafficLab/runs/pinole/fcd.xml",
+    "--device.fcd.period",
+    "1",
+    "--fcd-output.acceleration",
+    "true",
+    "--tripinfo-output",
+    "/workspace/scratch/0016e6a3814a/TrafficLab/runs/pinole/trips.xml",
+    "--summary-output",
+    "/workspace/scratch/0016e6a3814a/TrafficLab/runs/pinole/summary.xml",
+    "--no-step-log",
+    "true",
+    "--log",
+    "/workspace/scratch/0016e6a3814a/TrafficLab/runs/pinole/sumo.log"
+  ],
+  "vehicle_columns": [
+    "id",
+    "x_m",
+    "y_m",
+    "speed_m_s",
+    "angle_deg",
+    "lane",
+    "lane_position_m",
+    "acceleration_m_s2"
+  ]
+}
