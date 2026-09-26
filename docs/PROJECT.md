@@ -113,3 +113,12 @@ User requested corridor zoom, separate local road-speed and relative car-speed c
 ## Mission 006 — 2026-09-26
 
 Completed the predeclared 100/150/200 m × seeds 42/43 merge sensitivity study. All six runs insert and complete all 14,407 trips; every-step collision and teleport checks pass. Shared departure schedules within seeds and the same 18-bin scoring mask are enforced. The 150 m / seed 42 rerun exactly reproduces the current animation and detector records. The site publishes all cases with per-origin travel/waiting percentiles and explicitly keeps the replay fixed. One truncated XML attempt was rejected and rerun unchanged. This supports limited operational robustness, not physical geometry verification or multi-day validation. See [Mission 006](MISSION-006.md).
+
+
+## Viewer presentation pass — 2026-09-26
+
+User requested presentation, usability and visual improvements, including a first-person view of a tracked car. Added a schematic driver camera using recorded SUMO positions and interpolated headings, existing lane shapes, and internal lane connectors exported from the matching frozen network SHA-256. Flat ground, generic car bodies and illustrative markings are display assumptions. Source observations, recorded trajectories, model parameters, scoring and data-split roles are unchanged.
+
+The current replay has a clearer section navigation, selected-car inspector, collapsed settings/research notes, enlarged Focus view, calmer 1× driver playback with previous map-rate restoration, and an explicit next-car recovery when the tracked car leaves. Phone playback controls now follow the road before the inspector. Keyboard focus states, camera shortcuts, reduced-motion pause on load, limited pixel density and offscreen rendering suspension improve accessibility and responsiveness. The driver camera is also available in the three earlier replays and standalone exports.
+
+Verification: camera orientation/projection/clipping and existing flow-color checks pass. Chromium exercised current and earlier replays, auto-selection, inspector, rate restoration, Focus/Escape, exited-car recovery, map controls, camera keyboard switching, desktop/phone layout and reduced-motion startup without page errors. A final browser pass verified a car crossing an internal connector, restart in driver view, mobile playback order/Focus, and the fully embedded offline export. The synthetic integration run remains reproducible and drains all 600 trips with zero collisions/teleports. This is a presentation release, not additional empirical validation.

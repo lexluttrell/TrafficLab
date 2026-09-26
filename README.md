@@ -106,3 +106,13 @@ Open `http://localhost:8765/historical.html`. For a complete local multi-page si
 ## Mission 006: merge robustness
 
 [Inspect the six-case study](https://lexluttrell.github.io/TrafficLab/ramps.html#robustness): 100/150/200 m lane assumptions, each with seeds 42 and 43. The panel separates operational completion from detector accuracy and shows per-origin travel/stopped times. [Design and reproduction](docs/MISSION-006.md). The replay stays at 150 m / seed 42; selecting a study row changes diagnostics only.
+
+## Driver view and presentation controls
+
+In the [current replay](https://lexluttrell.github.io/TrafficLab/ramps.html), choose **Driver view** to ride with a simulated car, or select one in the corridor first. Driver view switches to 1× playback; returning to **Corridor** restores the previous rate. **Focus** expands the road while retaining playback controls. Escape exits Focus, then returns to the corridor; D switches camera views when the road has keyboard focus. Space pauses or resumes.
+
+The road-level view uses recorded SUMO positions, interpolated headings and existing lane shapes. It is a schematic flat-ground rendering, with illustrative car bodies and road markings—not camera footage, surveyed street scenery or a new simulation. Car colors retain the selected relative/absolute speed meaning. When a car leaves the recorded view, choose another or scrub back. On phones, playback controls sit directly below the road. Reduced-motion preferences start playback paused.
+
+Internal lane connections are exported from matching frozen networks, keyed by network SHA-256. After a network geometry change, regenerate the display asset with `python scripts/export-driver-geometry.py`.
+
+Camera geometry checks: `node tests/test-driver-view.cjs`. Existing flow-color checks: `node tests/test-flow-layer.cjs`.

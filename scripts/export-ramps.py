@@ -37,7 +37,7 @@ for i in range(0,len(frames),60):
     name=f'ramps-frames-{i//60:02}.json.gz';central['chunks'].append(name)
     (out/name).write_bytes(gzip.compress(json.dumps(frames[i:i+60],separators=(',',':')).encode(),mtime=0))
 (out/'ramps-replay.json.gz').write_bytes(gzip.compress(json.dumps(central,separators=(',',':')).encode(),mtime=0))
-for name in ['ramps-before.html','ramps.js','app.js','flow-layer.js','style.css','index.html','historical.html']:
+for name in ['ramps-before.html','ramps.js','app.js','flow-layer.js','driver-geometry.js','driver-view.js','style.css','index.html','historical.html']:
     shutil.copyfile(root/'viewer'/name,out/name)
 source=root/'scenarios/pinole-ramps/source.osm.xml'
 if source.exists():source.with_suffix('.xml.gz').write_bytes(gzip.compress(source.read_bytes(),mtime=0))

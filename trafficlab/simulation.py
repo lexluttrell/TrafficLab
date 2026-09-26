@@ -33,6 +33,8 @@ def run(scenario,output,seed=None):
     html=(viewer/'index.html').read_text()
     html=html.replace('<link rel="stylesheet" href="style.css">','<style>'+(viewer/'style.css').read_text()+'</style>')
     html=html.replace('<script src="flow-layer.js"></script>','<script>'+(viewer/'flow-layer.js').read_text()+'</script>')
+    html=html.replace('<script src="driver-geometry.js"></script>','<script>'+(viewer/'driver-geometry.js').read_text()+'</script>')
+    html=html.replace('<script src="driver-view.js"></script>','<script>'+(viewer/'driver-view.js').read_text()+'</script>')
     embedded=json.dumps(payload,separators=(',',':')).replace('<', '\\u003c')
     html=html.replace('<script src="app.js"></script>','<script id="embedded-replay" type="application/json">'+embedded+'</script><script>'+(viewer/'app.js').read_text()+'</script>')
     (output/'Open-TrafficLab.html').write_text(html,encoding='utf-8')
