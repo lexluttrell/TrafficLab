@@ -80,3 +80,17 @@ The frozen OSM extract and hosted replay are stored with lossless gzip compressi
 [Open the observations viewer](https://lexluttrell.github.io/TrafficLab/observations.html). It accepts a local normalized JSON file without uploading it. No historical data is bundled yet. Caltrans PeMS access or authorized downloaded source files are required to complete this mission.
 
 See [Mission 002 plan and import command](docs/MISSION-002-PLAN.md). Run parser checks with `python -m unittest discover -s tests -p test_pems.py -v`. Tests use explicitly fabricated rows, never a substitute for empirical validation. Missing intervals remain gaps, zero counts remain zero, and percent-observed flags remain visible. Source speed estimates are not presented as individually measured vehicle speeds.
+
+## Mission 003: historical-count baseline
+
+The separate [historical-count replay](https://lexluttrell.github.io/TrafficLab/historical.html) feeds reported Sept 24 entry counts into SUMO and compares downstream detector output. It is explicitly **through-only and uncalibrated**; ramp effects and parameter fitting are future work. The ten-minute visible replay is sampled from a one-hour run, with 15 minutes excluded as warm-up from diagnostics.
+
+After installing `requirements.txt`, reproduce with:
+
+```sh
+python -m trafficlab.historical --observations docs/observations-2026-09-24.json.gz --output runs/historical
+python scripts/export-historical.py --source runs/historical --destination runs/historical-viewer
+python -m http.server 8765 --directory runs/historical-viewer
+```
+
+Open `http://localhost:8765/historical.html`. For a complete local multi-page site, export to `docs` and serve `docs` instead. Region/time/entry-station choices live in `scenarios/pinole/historical.json`. Full plan and caveats: `docs/MISSION-003-PLAN.md`. Run scientific-accounting checks with `python -m unittest discover -s tests -p test_comparison.py`.

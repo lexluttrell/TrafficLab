@@ -145,7 +145,7 @@ def run(scenario, observations, output, seed=None):
           'source_provenance':bundle['provenance'],'report':report,'routes':chosen_routes,
           'assumptions':[config['demand_scope'],'Entry flow is counted at internal model boundaries, not unconstrained upstream travel demand.',
                          'Departures are uniformly randomized within each five-minute bin with fixed seed; counts rounded to nearest integer.',
-                         'Eastbound input station 400865 is partially observed (75%); source estimation is retained.',
+                         'Source quality and any partial observation are retained per entry station and interval; see comparison inputs.',
                          'Single passenger-car population uses uncalibrated Krauss parameters; entry speed is model free speed, not measured speed.',
                          'SUMO loop speeds use count-weighted arithmetic means; real detector estimation may differ.',
                          'Timestamp interval start follows documented PeMS schema; source-local clock used without UTC alignment.',
