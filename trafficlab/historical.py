@@ -99,7 +99,7 @@ def run(scenario, observations, output, seed=None, config_file=None):
                          'status':'provisional spatial/topological model binding; not field certified','lanes':lane_positions})
     detectors = output/'detectors.add.xml';ET.ElementTree(additional).write(detectors,encoding='utf-8',xml_declaration=True)
     cmd=[binary('sumo'),'-n',str(network),'-r',str(demand),'-a',str(detectors),'--seed',str(seed),
-         '--step-length','0.2','--end',str(config['duration_seconds']),
+         '--step-length','0.2','--end',str(config['duration_seconds']+config.get('drain_seconds',0)),
          '--fcd-output',str(output/'fcd.xml.gz'),'--device.fcd.period',str(config['sample_seconds']),
          '--device.fcd.begin',str(config['replay_begin_seconds']),'--fcd-output.acceleration','true',
          '--tripinfo-output',str(output/'trips.xml'),'--tripinfo-output.write-unfinished','true','--summary-output',str(output/'summary.xml'),
@@ -112,6 +112,7 @@ def run(scenario, observations, output, seed=None, config_file=None):
     comparison=[]
     for (sid,begin),lanes in sorted(grouped.items()):
         if len(lanes)!=lane_counts[sid]:raise ValueError('Incomplete simulated station aggregation')
+        if begin>=config['duration_seconds']:continue
         stamp=(start+timedelta(seconds=begin)).isoformat(); obs=rows.get((sid,stamp))
         reasons=[]
         if begin<config['warmup_seconds']:reasons.append('warmup')
@@ -136,9 +137,10 @@ def run(scenario, observations, output, seed=None, config_file=None):
                            v.attrib['lane'],round(float(v.attrib['pos']),1),round(float(v.attrib.get('acceleration',0)),2)] for v in e]
                 frames.append({'time':time-config['replay_begin_seconds'],'vehicles':vehicles})
             e.clear()
-    last=ET.parse(output/'summary.xml').getroot()[-1].attrib
+    summary=list(ET.parse(output/'summary.xml').getroot())
+    last=next(e.attrib for e in reversed(summary) if float(e.attrib['time'])<config['duration_seconds'])
     all_trips=list(ET.parse(output/'trips.xml').getroot())
-    trips=[t for t in all_trips if float(t.attrib['arrival'])>=0]
+    trips=[t for t in all_trips if 0<=float(t.attrib['arrival'])<config['duration_seconds']]
     report={'scheduled':len(departures),'completed_trips':len(trips),
             **{k:int(last.get(k,0)) for k in ['inserted','running','waiting','teleports','collisions']}}
     report['not_inserted']=report['scheduled']-report['inserted']
@@ -166,7 +168,7 @@ def run(scenario, observations, output, seed=None, config_file=None):
         report['ramp_exit_completions']={sid:sum(dest.get(t.attrib['id'])==sid for t in trips) for sid in [e['station'] for e in config['ramp_events'] if e['kind']=='exit']}
         report['ramp_origin_completed']=sum(t.attrib['id'].split('-')[0][1:] not in config['input_stations'] for t in trips)
         # Unfinished trip records make per-origin accounting exact at the run cutoff.
-        seen={t.attrib['id'] for t in all_trips if float(t.attrib['depart'])>=0}
+        seen={t.attrib['id'] for t in all_trips if 0<=float(t.attrib['depart'])<config['duration_seconds']}
         report['origins']=[]
         for sid in dict.fromkeys(v['origin'] for v in departures):
             assigned={v['id'] for v in departures if v['origin']==sid}
@@ -178,10 +180,21 @@ def run(scenario, observations, output, seed=None, config_file=None):
         for event in ramp_plan['bindings']:
             edge=net.getEdge(event['edges'][0])
             event['network_xy']=sumolib.geomhelper.positionAtShapeOffset(edge.getShape(),min(20,edge.getLength()))
+        if config.get('drain_seconds'):
+            final=summary[-1].attrib
+            completed=[t for t in all_trips if float(t.attrib['arrival'])>=0]
+            meta['drain_report']={'additional_seconds':config['drain_seconds'],
+                'scheduled':len(departures),'inserted':int(final['inserted']),
+                'completed':len(completed),'running':int(final['running']),
+                'not_inserted':len(departures)-int(final['inserted']),
+                'collisions':int(final['collisions']),'teleports':int(final['teleports']),
+                'last_arrival_seconds':max((float(t.attrib['arrival']) for t in completed),default=0),
+                'all_trips_completed':len(completed)==len(departures),
+                'origins':[{**o,'completed_after_drain':sum(t.attrib['id'].split('-')[0][1:]==o['station'] for t in completed)} for o in report['origins']]}
         meta['ramp_plan']=ramp_plan
         meta['report']=report
-    payload={'meta':meta,'frames':frames,'lanes':[{'id':l.getID(),'shape':l.getShape(),'width':l.getWidth(),'name':e.getName(),'speed':l.getSpeed()} for e in net.getEdges() for l in e.getLanes()],
-             'context_labels':geometry.get('context_labels',[]),'context_roads':roads(scenario/'source.osm.xml',net),
+    payload={'meta':meta,'frames':frames,'lanes':[{'id':l.getID(),'shape':l.getShape(),'width':l.getWidth(),'length_m':l.getLength(),'name':e.getName(),'speed':l.getSpeed()} for e in net.getEdges() for l in e.getLanes()],
+             'context_labels':geometry.get('context_labels',[]),'context_roads':roads(scenario/geometry.get('context_source','source.osm.xml'),net),
              'comparison':{'stations':bindings,'records':comparison,'metrics':diagnostics(comparison),'inputs':inputs,
                            'input_markers':[{'id':sid,'network_xy':stations[sid]['network_xy'],'direction':stations[sid]['direction']} for sid in config['input_stations']]}}
     (output/'replay.json').write_text(json.dumps(payload,separators=(',',':'),allow_nan=False))

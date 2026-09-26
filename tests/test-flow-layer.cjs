@@ -1,0 +1,11 @@
+const assert=require('node:assert/strict');const F=require('../viewer/flow-layer.js');
+const car=(id,speed,lane='east_0',pos=20)=>[id,0,0,speed,0,lane,pos,0];
+const a=car('a',30),b=car('b',20,'east_1'),c=car('c',20),opposite=car('west',0,'west_0'),next=car('next',0,'east_0',120),ramp=car('ramp',0,'ramp_0');
+const g=F.aggregate([a,b,c,opposite,next,ramp]);
+assert.deepEqual(F.peer(a,g),{mean:20,count:2});
+assert.equal(F.carColor(a,g,'relative'),'#50dfff');
+assert.equal(F.carColor(b,g,'relative'),'#df9cff');
+assert.equal(F.peer(opposite,g),null);assert.equal(F.carColor(opposite,g,'relative'),'#8c9eac');
+const equal=[car('1',20),car('2',20),car('3',20)];assert.equal(F.carColor(equal[0],F.aggregate(equal),'relative'),'#f2f4ed');
+assert.equal(F.carColor(a,g,'absolute'),'#79f4cc');
+console.log('PASS: excludes self, separates directions/ramps/100m sections, sparse peer handling and relative/absolute colors');

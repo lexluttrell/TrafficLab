@@ -29,13 +29,15 @@ for event in central['meta']['ramp_plan']['bindings']:
         'status':'Inferred hour-total balance' if estimate else 'Reported PeMS count',
         'fraction':estimate['applied_fraction'] if estimate else None,
         'count':sum(t['assigned'] for t in central['meta']['ramp_plan']['exit_targets'] if t['station_id']==event['station'])})
+previous=json.loads((out/'ramps-study.json').read_text()) if (out/'ramps-study.json').exists() else {'runs':[]}
+study['runs'].extend(r for r in previous['runs'] if r['key']=='merge')
 (out/'ramps-study.json').write_text(json.dumps(study,separators=(',',':')))
 frames=central.pop('frames');central['chunks']=[]
 for i in range(0,len(frames),60):
     name=f'ramps-frames-{i//60:02}.json.gz';central['chunks'].append(name)
     (out/name).write_bytes(gzip.compress(json.dumps(frames[i:i+60],separators=(',',':')).encode(),mtime=0))
 (out/'ramps-replay.json.gz').write_bytes(gzip.compress(json.dumps(central,separators=(',',':')).encode(),mtime=0))
-for name in ['ramps.html','ramps.js','app.js','style.css','index.html','historical.html']:
+for name in ['ramps-before.html','ramps.js','app.js','flow-layer.js','style.css','index.html','historical.html']:
     shutil.copyfile(root/'viewer'/name,out/name)
 source=root/'scenarios/pinole-ramps/source.osm.xml'
 if source.exists():source.with_suffix('.xml.gz').write_bytes(gzip.compress(source.read_bytes(),mtime=0))

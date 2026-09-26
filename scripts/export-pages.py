@@ -4,7 +4,7 @@ import shutil
 import gzip
 root = Path(__file__).resolve().parents[1]
 source = root / 'runs' / 'pinole'
-for name in ('index.html', 'app.js', 'style.css', 'manifest.json'):
+for name in ('index.html', 'app.js', 'flow-layer.js', 'style.css', 'manifest.json'):
     shutil.copyfile(source / name, root / 'docs' / name)
 (root / 'docs' / '.nojekyll').touch()
 print('Pages export ready in docs/. Commit and push to publish updates.')

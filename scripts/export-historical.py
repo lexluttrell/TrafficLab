@@ -15,6 +15,6 @@ for i in range(0,len(frames),60):
  name=f'historical-frames-{i//60:02}.json.gz';d['chunks'].append(name)
  (a.destination/name).write_bytes(gzip.compress(json.dumps(frames[i:i+60],separators=(',',':')).encode(),mtime=0))
 (a.destination/'historical-replay.json.gz').write_bytes(gzip.compress(json.dumps(d,separators=(',',':')).encode(),mtime=0))
-for name in ['historical.html','app.js','style.css','index.html']:
+for name in ['historical.html','app.js','flow-layer.js','style.css','index.html']:
  shutil.copyfile(root/'viewer'/name,a.destination/name)
 print('Exported historical replay, preserving the original replay bundle.')

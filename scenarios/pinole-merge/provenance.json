@@ -1,0 +1,24 @@
+{
+  "source_scenario": "../pinole-ramps",
+  "source_network_sha256": "6060fc822791dc12ebbd8d9c758ac48f181dc0682e8df4deebdc7282e25182e8",
+  "network_sha256": "ac159968f3f418738652b254a50350c3f920c5b823d49e68553a0de0a24ab22b",
+  "conversion": [
+    "--osm-files",
+    "scenarios/pinole-ramps/source.osm.xml.gz",
+    "--keep-edges.by-type",
+    "highway.motorway,highway.motorway_link",
+    "--remove-edges.isolated",
+    "true",
+    "--output.street-names",
+    "true",
+    "--ramps.set",
+    "1193463509#1,23978795#1",
+    "--ramps.ramp-length",
+    "150",
+    "--output-file",
+    "scenarios/pinole-merge/network.net.xml"
+  ],
+  "hypothesis": "Two 150 m acceleration lanes missing in the original import; assumed geometry, not field surveyed.",
+  "reference": "https://sumo.dlr.de/docs/Simulation/Motorways.html#motorway-ramps",
+  "original_departure_schedule_sha256": "52675663edf469a76623125fe32bba7f55cab28b9d1a63c2470092f4438a2498"
+}

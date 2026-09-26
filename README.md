@@ -98,3 +98,7 @@ Open `http://localhost:8765/historical.html`. For a complete local multi-page si
 ## Mission 004: ramps and boundaries
 
 [Open the ramp experiment](https://lexluttrell.github.io/TrafficLab/ramps.html): five measured on-ramps, four exits (three explicitly inferred), a same-network control, low/high exit sensitivity and per-origin insertion accounting. Two eastbound ramp queues prevent delivery of all demand, so improved detector errors are not validation. [Run notes, limits and reproduction](docs/MISSION-004.md). More weekdays can follow; first resolve merge geometry and downstream boundary behavior.
+
+## Mission 005: navigation, flow layers and working merges
+
+[Explore the current corridor](https://lexluttrell.github.io/TrafficLab/ramps.html). Zoom at a location, jump to a ramp or detector, color roads by local mean speed, and color cars relative to nearby traffic. Two explicitly assumed acceleration lanes allow all 14,407 cars to enter and complete their trips. The original blocked-ramp replay remains linked. Geometry is not field-verified and the model is uncalibrated. [Definitions, results and reproduction](docs/MISSION-005.md).

@@ -1,0 +1,149 @@
+{
+  "date": "2026-09-24",
+  "start_local": "07:30:00",
+  "duration_seconds": 3600,
+  "warmup_seconds": 900,
+  "replay_begin_seconds": 1800,
+  "replay_end_seconds": 2400,
+  "sample_seconds": 2,
+  "seed": 42,
+  "input_stations": [
+    "400430",
+    "401084"
+  ],
+  "excluded_stations": {
+    "400313": "ambiguous mapping and imputed values",
+    "401081": "lane mismatch and upstream of model entry"
+  },
+  "demand_scope": "Measured on-ramp entries and one measured exit; three missing exits use bounded hour-total flow-balance fractions. No calibration; source-bin routing targets are not exact ramp passage times. Two inferred 150 m acceleration lanes test the missing-merge-geometry hypothesis; not field-verified.",
+  "demand_mode": "ramps",
+  "exit_multiplier": 1.0,
+  "fit_stations": [
+    "400865",
+    "400301",
+    "401230",
+    "401480"
+  ],
+  "mainline_end_edges": {
+    "E": "395350876",
+    "W": "618988020"
+  },
+  "ramp_events": [
+    {
+      "station": "407263",
+      "direction": "E",
+      "kind": "exit",
+      "edges": [
+        "147393593"
+      ],
+      "evidence": "Appian EB off, branch from 696300417 upstream of on-ramps",
+      "estimate": {
+        "upstream": [
+          "400430"
+        ],
+        "add": [],
+        "downstream": [
+          "400865"
+        ]
+      }
+    },
+    {
+      "station": "407262",
+      "direction": "E",
+      "kind": "entry",
+      "edges": [
+        "7853078#1",
+        "1193463512",
+        "1193463511"
+      ],
+      "evidence": "Appian EB loop, joins 1193463509#1; one lane"
+    },
+    {
+      "station": "420689",
+      "direction": "E",
+      "kind": "entry",
+      "edges": [
+        "278320056#1",
+        "392794067"
+      ],
+      "evidence": "Appian EB direct ramp, two lanes taper to one; joins 395352202"
+    },
+    {
+      "station": "407261",
+      "direction": "E",
+      "kind": "exit",
+      "edges": [
+        "392803758"
+      ],
+      "evidence": "Pinole Valley EB off branches from 395352202; counts available"
+    },
+    {
+      "station": "407268",
+      "direction": "E",
+      "kind": "entry",
+      "edges": [
+        "7852677"
+      ],
+      "evidence": "Pinole Valley EB on joins 23978795#1"
+    },
+    {
+      "station": "407305",
+      "direction": "W",
+      "kind": "exit",
+      "edges": [
+        "392803760"
+      ],
+      "evidence": "Pinole Valley WB off branches from 23990762",
+      "estimate": {
+        "upstream": [
+          "401084"
+        ],
+        "add": [],
+        "downstream": [
+          "400301"
+        ]
+      }
+    },
+    {
+      "station": "407295",
+      "direction": "W",
+      "kind": "entry",
+      "edges": [
+        "696300413",
+        "392803756"
+      ],
+      "evidence": "Pinole Valley WB on, two lanes taper to one, joins 395352203"
+    },
+    {
+      "station": "407296",
+      "direction": "W",
+      "kind": "exit",
+      "edges": [
+        "147393585"
+      ],
+      "evidence": "Appian WB off branches from 395352203",
+      "estimate": {
+        "upstream": [
+          "401230"
+        ],
+        "add": [
+          "407295"
+        ],
+        "downstream": [
+          "401480"
+        ]
+      }
+    },
+    {
+      "station": "407298",
+      "direction": "W",
+      "kind": "entry",
+      "edges": [
+        "392794071",
+        "392794072"
+      ],
+      "evidence": "Appian WB on, two-lane ramp reaches 618988024 after west extension"
+    }
+  ],
+  "drain_seconds": 900
+}

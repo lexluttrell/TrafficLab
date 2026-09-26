@@ -1,0 +1,82 @@
+Success.
+Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurrence for edge '30098300').
+Warning: Ambiguous railway kilometrage direction for way '30098940' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '35534705' (assuming forward)
+Warning: Discarding unusable type 'waterway.stream' (first occurrence for edge '473708135').
+Warning: Discarding unusable type 'waterway.drain' (first occurrence for edge '1390281301').
+Warning: Removing pt stop '256027677' on non existing edge '395354833#2'.
+Warning: Removing pt stop '271469496' on non existing edge '575424956#6'.
+Warning: Removing pt stop '5019046678' on non existing edge '23978585#1'.
+Warning: Removing pt stop '57925080' on non existing edge '475999539#3'.
+Warning: Removing pt stop '6495498833' on non existing edge '1068115575#0'.
+Warning: Invalid color value 'darkblue' in relation 905830
+Warning: PT line in relation 2235086 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 2812900 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 4668742 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 4668743 with no stops ignored. Probably OSM file is incomplete.
+Warning: from-edge '395354845' of restriction relation could not be determined
+Warning: Ignoring restriction relation '7675209'.
+Warning: from-edge '23978591' of restriction relation could not be determined
+Warning: Ignoring restriction relation '8169491'.
+Warning: from-edge '395354813' of restriction relation could not be determined
+Warning: Ignoring restriction relation '8169492'.
+Warning: direction of restriction relation could not be determined
+Warning: Ignoring restriction relation '8169517'.
+Warning: direction of restriction relation could not be determined
+Warning: Ignoring restriction relation '8169518'.
+Warning: from-edge '1426355652' of restriction relation could not be determined
+Warning: from-edge '1088110420' of restriction relation could not be determined
+Warning: Invalid color value 'darkblue' in relation 8440301
+Warning: PT line in relation 8440301 with no stops ignored. Probably OSM file is incomplete.
+Warning: Invalid color value 'darkblue' in relation 8440320
+Warning: PT line 'WestCAT 16: Richmond Parkway Transit Center => Pinole Valley' in relation 9686365 has a gap of 2 stops, only keeping first part.
+Warning: direction of restriction relation could not be determined
+Warning: direction of restriction relation could not be determined
+Warning: direction of restriction relation could not be determined
+Warning: No way found for reference '1061233978' in relation '14152196'
+Warning: No way found for reference '154918355' in relation '14152196'
+Warning: Ignoring restriction relation '14152196' with unknown via.
+Warning: No way found for reference '1080529471' in relation '14376644'
+Warning: No way found for reference '1080529470' in relation '14376644'
+Warning: Ignoring restriction relation '14376644' with unknown from-way.
+Warning: Ignoring restriction relation '14376644' with unknown via.
+Warning: Removed a road without junctions: 23633939,395354862.
+Warning: Removed a road without junctions: 619027297,23632940.
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '5845175462' (Crespi Middle School). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '6546225136' (Simas Avenue & Lassen Way). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '6546225138' (Simas Avenue & Diablo Circle). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '6546225140' (Pinole Swimming Pool). Thus, it will be removed!
+Warning: Cannot revise pt stop localization for pt line '8548883', which has no route edges. Ignoring!
+Warning: Removed invalid stop '256027677' from line '8548883'.
+Warning: Removed invalid stop '6538539516' from line '8548883'.
+Warning: Removed invalid stop '6538539513' from line '8548883'.
+Warning: Removed invalid stop '6975156614' from line '8548883'.
+Warning: Cannot revise pt stop localization for pt line '9499497', which has no route edges. Ignoring!
+Warning: Removed invalid stop '6538539514' from line '9499497'.
+Warning: Could not assign stop '6538556039' to pt line '9677809' (closest edge '696300413', distance 1414.33). Ignoring!
+Warning: Could not assign stop '6538556037' to pt line '9677809' (closest edge '696300413', distance 1091.92). Ignoring!
+Warning: Could not assign stop '6538556031' to pt line '9677809' (closest edge '696300413', distance 637.44). Ignoring!
+Warning: Could not assign stop '6538556029' to pt line '9677809' (closest edge '696300413', distance 242.78). Ignoring!
+Warning: Could not assign stop '6538539514' to pt line '9677809' (closest edge '392794066', distance 285.11). Ignoring!
+Warning: Cannot revise pt stop localization for pt line '9680875', which has no route edges. Ignoring!
+Warning: Cannot revise pt stop localization for pt line '9680877', which has no route edges. Ignoring!
+Warning: Cannot revise pt stop localization for pt line '9680879', which has no route edges. Ignoring!
+Warning: Found sharp turn with radius 8.90 at the start of edge '7853078#1'.
+Warning: Shape for junction '257540462' has distance 32.20 to its given position.
+Warning: Shape for junction '57785730' has distance 44.47 to its given position.
+Warning: Shape for junction '57787552' has distance 48.75 to its given position.
+Warning: Shape for junction '57792579' has distance 24.80 to its given position.
+Warning: Shape for junction '57852757' has distance 21.01 to its given position.
+Warning: The traffic light '1390092216' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1390092216'
+Warning: Speed of straight connection '392794067_0->395352202_0' reduced by 7.35 due to turning radius of 60.82 (length=8.19, angle=22.82).
+Warning: Speed of straight connection '392794072_0->618988024_0' reduced by 10.56 due to turning radius of 41.34 (length=3.54, angle=20.01).
+Warning: Removed 133 pt stops because they could not be assigned to the network
+Warning: 15 total messages of type: Cannot revise pt stop localization for pt line '%', which has no route edges. Ignoring!
+Warning: 78 total messages of type: Could not assign stop '%' to pt line '%' (closest edge '%', distance %). Ignoring!
+Warning: 30 total messages of type: Ignoring restriction relation '%'.
+Warning: 38 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
+Warning: 211 total messages of type: Removed invalid stop '%' from line '%'.
+Warning: 204 total messages of type: Removing pt stop '%' on non existing edge '%'.
+Warning: 10 total messages of type: direction of restriction relation could not be determined%
+Warning: 20 total messages of type: from-edge '%' of restriction relation could not be determined

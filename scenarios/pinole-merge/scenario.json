@@ -1,0 +1,20 @@
+{
+  "name": "I-80 \u00b7 Pinole merge experiment",
+  "bbox": [
+    -122.315,
+    37.986,
+    -122.27,
+    38.01
+  ],
+  "source_url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.315,37.986,-122.27,38.01",
+  "seed": 42,
+  "demand_end": 600,
+  "vehicles_per_hour_per_direction": 1800,
+  "context_labels": [
+    "Pinole Valley Road",
+    "Appian Way",
+    "Fitzgerald Drive",
+    "San Pablo Avenue"
+  ],
+  "context_source": "../pinole-ramps/source.osm.xml"
+}
