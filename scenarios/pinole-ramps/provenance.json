@@ -1,0 +1,22 @@
+{
+  "retrieved_date_utc": "2026-09-26",
+  "source_extent_note": "OSM returns complete ways intersecting bbox; geometry can extend outside it.",
+  "source_url": "https://api.openstreetmap.org/api/0.6/map?bbox=-122.315,37.986,-122.27,38.01",
+  "source_sha256": "bce83c9d9dc5845aded530a782f693b65da439792fd089a2582c9e9816196166",
+  "stored_source_sha256": "bce83c9d9dc5845aded530a782f693b65da439792fd089a2582c9e9816196166",
+  "network_sha256": "6060fc822791dc12ebbd8d9c758ac48f181dc0682e8df4deebdc7282e25182e8",
+  "attribution": "\u00a9 OpenStreetMap contributors, ODbL 1.0",
+  "conversion": [
+    "--osm-files",
+    "scenarios/pinole-ramps/source.osm.xml",
+    "--keep-edges.by-type",
+    "highway.motorway,highway.motorway_link",
+    "--remove-edges.isolated",
+    "true",
+    "--output.street-names",
+    "true",
+    "--output-file",
+    "scenarios/pinole-ramps/network.net.xml"
+  ],
+  "sumo_version": "Eclipse SUMO sumo 1.27.1"
+}

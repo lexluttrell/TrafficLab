@@ -60,7 +60,7 @@ Scenario-specific geography is data, not hardcoded in the engine. Context-road l
 Pin SUMO 1.27.1 and seed 42 to reproduce this run. The manifest records network/demand hashes, SUMO version, run command and trip accounting. Exact trajectory equality was verified on the same platform, not across operating systems or future SUMO versions.
 
 ## Scientific limits
-The inputs are mapped road geometry, inferred/default network attributes, assumed synthetic demand (1,800 vehicles/hour/direction for 10 minutes), and SUMO Krauss driver defaults explicitly set in the demand file. Ramps are shown but receive no external demand. Traffic is through-only. Lane restrictions, geometry, connection shapes and speed limits have not been field-audited. HOV behavior is not calibrated. There is no PeMS data, historical replay, fitted driver population, empirical validation or counterfactual experiment yet.
+The inputs are mapped road geometry, inferred/default network attributes, assumed synthetic demand (1,800 vehicles/hour/direction for 10 minutes), and SUMO Krauss driver defaults explicitly set in the demand file. Ramps are shown but receive no external demand. Traffic is through-only. Lane restrictions, geometry, connection shapes and speed limits have not been field-audited. HOV behavior is not calibrated. These limits describe Mission 001. Subsequent observation, historical-count and ramp experiments are linked below; none is calibrated or validated for counterfactual conclusions.
 
 The initial OSM conversion emits warnings about removed public-transport stops, incomplete out-of-scope restrictions, and some junction geometry. Passing routes and zero teleports do not establish geometric or behavioral accuracy. Review these before calibration.
 
@@ -77,7 +77,7 @@ The frozen OSM extract and hosted replay are stored with lossless gzip compressi
 
 ## Mission 002 — historical observations (in progress)
 
-[Open the observations viewer](https://lexluttrell.github.io/TrafficLab/observations.html). It accepts a local normalized JSON file without uploading it. No historical data is bundled yet. Caltrans PeMS access or authorized downloaded source files are required to complete this mission.
+[Open the observations viewer](https://lexluttrell.github.io/TrafficLab/observations.html). It accepts a local normalized JSON file without uploading it. The hosted page loads the September 24 aggregate subset supplied by the user. Caltrans PeMS access or authorized downloaded files are required for additional days.
 
 See [Mission 002 plan and import command](docs/MISSION-002-PLAN.md). Run parser checks with `python -m unittest discover -s tests -p test_pems.py -v`. Tests use explicitly fabricated rows, never a substitute for empirical validation. Missing intervals remain gaps, zero counts remain zero, and percent-observed flags remain visible. Source speed estimates are not presented as individually measured vehicle speeds.
 
@@ -94,3 +94,7 @@ python -m http.server 8765 --directory runs/historical-viewer
 ```
 
 Open `http://localhost:8765/historical.html`. For a complete local multi-page site, export to `docs` and serve `docs` instead. Region/time/entry-station choices live in `scenarios/pinole/historical.json`. Full plan and caveats: `docs/MISSION-003-PLAN.md`. Run scientific-accounting checks with `python -m unittest discover -s tests -p test_comparison.py`.
+
+## Mission 004: ramps and boundaries
+
+[Open the ramp experiment](https://lexluttrell.github.io/TrafficLab/ramps.html): five measured on-ramps, four exits (three explicitly inferred), a same-network control, low/high exit sensitivity and per-origin insertion accounting. Two eastbound ramp queues prevent delivery of all demand, so improved detector errors are not validation. [Run notes, limits and reproduction](docs/MISSION-004.md). More weekdays can follow; first resolve merge geometry and downstream boundary behavior.

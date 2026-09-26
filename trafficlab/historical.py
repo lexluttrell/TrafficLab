@@ -1,4 +1,4 @@
-"""Observation-driven SUMO through-traffic baseline. No parameter calibration."""
+"""Observation-driven SUMO scenarios with explicit demand and diagnostic exclusions."""
 import argparse
 from collections import defaultdict
 from datetime import datetime, timedelta
@@ -28,10 +28,11 @@ def build_departures(count, begin, rng):
     return sorted(begin + rng.random()*300 for _ in range(n))
 
 
-def run(scenario, observations, output, seed=None):
+def run(scenario, observations, output, seed=None, config_file=None):
     import sumolib
     output = output.resolve(); output.mkdir(parents=True, exist_ok=True)
-    config = json.loads((scenario/'historical.json').read_text())
+    config_file = config_file or scenario/'historical.json'
+    config = json.loads(config_file.read_text())
     geometry = json.loads((scenario/'scenario.json').read_text())
     bundle = read_bundle(observations)
     if bundle['date'] != config['date']:
@@ -46,31 +47,36 @@ def run(scenario, observations, output, seed=None):
     root = ET.Element('routes')
     ET.SubElement(root, 'vType', id='baseline-car', vClass='passenger', carFollowModel='Krauss',
                   accel='2.6', decel='4.5', sigma='0.5', tau='1.0', length='5', minGap='2.5', maxSpeed='33.33')
-    rng = random.Random(seed); departures = []; inputs = []; chosen_routes = []
-    for sid in config['input_stations']:
-        s = stations[sid]; candidate = s['mapping_candidates'][0]
-        if candidate['distance_m'] > 15 or candidate['network_lanes'] != s['lanes']:
-            raise ValueError('Input station binding fails distance/lane check: '+sid)
-        route = next(r for r in through_routes if candidate['edge'] in r['edges'])
-        edges = route['edges'][route['edges'].index(candidate['edge']):]
-        rid = 'from-'+sid; pos = candidate['offset_m']+10
-        if pos >= net.getEdge(edges[0]).getLength()-5:
-            raise ValueError('Entry position is too close to edge end: '+sid)
-        ET.SubElement(root, 'route', id=rid, edges=' '.join(edges))
-        chosen_routes.append({'id':rid,'edges':edges,'input_station':sid,'depart_position_m':pos})
-        for begin in range(0, config['duration_seconds'], 300):
-            stamp=(start+timedelta(seconds=begin)).isoformat()
-            row = rows.get((sid,stamp))
-            if row is None: raise ValueError('Missing entry interval: '+sid+' '+stamp)
-            times = build_departures(row['flow_vehicles_per_5min'], begin, rng)
-            inputs.append({'station_id':sid,'begin':begin,'timestamp_local':stamp,
-                           'reported_count':row['flow_vehicles_per_5min'],'scheduled_count':len(times),
-                           'percent_observed':row['percent_observed'],'quality_flags':row['quality_flags']})
-            for i, depart in enumerate(times):
-                departures.append((depart, sid, begin, i, rid, pos))
-    for depart,sid,begin,i,rid,pos in sorted(departures):
-        ET.SubElement(root,'vehicle',id=f'p{sid}-{begin}-{i}',type='baseline-car',route=rid,
-                      depart=f'{depart:.3f}',departPos=str(pos),departLane='free',departSpeed='max')
+    ramp_plan = None
+    if 'ramp_events' in config:
+        from .ramp_demand import build_ramps
+        departures, inputs, chosen_routes, ramp_plan = build_ramps(net,through_routes,stations,rows,start,config,root,seed)
+    else:
+        rng = random.Random(seed); departures = []; inputs = []; chosen_routes = []
+        for sid in config['input_stations']:
+            s = stations[sid]; candidate = s['mapping_candidates'][0]
+            if candidate['distance_m'] > 15 or candidate['network_lanes'] != s['lanes']:
+                raise ValueError('Input station binding fails distance/lane check: '+sid)
+            route = next(r for r in through_routes if candidate['edge'] in r['edges'])
+            edges = route['edges'][route['edges'].index(candidate['edge']):]
+            rid = 'from-'+sid; pos = candidate['offset_m']+10
+            if pos >= net.getEdge(edges[0]).getLength()-5:
+                raise ValueError('Entry position is too close to edge end: '+sid)
+            ET.SubElement(root, 'route', id=rid, edges=' '.join(edges))
+            chosen_routes.append({'id':rid,'edges':edges,'input_station':sid,'depart_position_m':pos})
+            for begin in range(0, config['duration_seconds'], 300):
+                stamp=(start+timedelta(seconds=begin)).isoformat()
+                row = rows.get((sid,stamp))
+                if row is None: raise ValueError('Missing entry interval: '+sid+' '+stamp)
+                times = build_departures(row['flow_vehicles_per_5min'], begin, rng)
+                inputs.append({'station_id':sid,'begin':begin,'timestamp_local':stamp,
+                               'reported_count':row['flow_vehicles_per_5min'],'scheduled_count':len(times),
+                               'percent_observed':row['percent_observed'],'quality_flags':row['quality_flags']})
+                for i, depart in enumerate(times):
+                    departures.append((depart, sid, begin, i, rid, pos))
+        for depart,sid,begin,i,rid,pos in sorted(departures):
+            ET.SubElement(root,'vehicle',id=f'p{sid}-{begin}-{i}',type='baseline-car',route=rid,
+                          depart=f'{depart:.3f}',departPos=str(pos),departLane='free',departSpeed='max')
     demand = output/'demand.rou.xml'; ET.ElementTree(root).write(demand,encoding='utf-8',xml_declaration=True)
     additional = ET.Element('additional'); bindings=[]; lane_counts={}
     for sid,s in stations.items():
@@ -96,7 +102,7 @@ def run(scenario, observations, output, seed=None):
          '--step-length','0.2','--end',str(config['duration_seconds']),
          '--fcd-output',str(output/'fcd.xml.gz'),'--device.fcd.period',str(config['sample_seconds']),
          '--device.fcd.begin',str(config['replay_begin_seconds']),'--fcd-output.acceleration','true',
-         '--tripinfo-output',str(output/'trips.xml'),'--summary-output',str(output/'summary.xml'),
+         '--tripinfo-output',str(output/'trips.xml'),'--tripinfo-output.write-unfinished','true','--summary-output',str(output/'summary.xml'),
          '--no-step-log','true','--log',str(output/'sumo.log'),'--time-to-teleport','-1']
     subprocess.run(cmd,check=True,stdout=subprocess.DEVNULL)
     grouped=defaultdict(list)
@@ -109,6 +115,7 @@ def run(scenario, observations, output, seed=None):
         stamp=(start+timedelta(seconds=begin)).isoformat(); obs=rows.get((sid,stamp))
         reasons=[]
         if begin<config['warmup_seconds']:reasons.append('warmup')
+        if sid in config.get('fit_stations',[]):reasons.append('used_for_demand_estimation')
         if obs is None:reasons.append('missing_source_row')
         elif obs['percent_observed']!=100 or obs['quality_flags']:reasons.append('source_quality')
         comparison.append({'station_id':sid,'begin':begin,'end':begin+300,'timestamp_local':stamp,
@@ -130,18 +137,19 @@ def run(scenario, observations, output, seed=None):
                 frames.append({'time':time-config['replay_begin_seconds'],'vehicles':vehicles})
             e.clear()
     last=ET.parse(output/'summary.xml').getroot()[-1].attrib
-    trips=ET.parse(output/'trips.xml').getroot()
+    all_trips=list(ET.parse(output/'trips.xml').getroot())
+    trips=[t for t in all_trips if float(t.attrib['arrival'])>=0]
     report={'scheduled':len(departures),'completed_trips':len(trips),
             **{k:int(last.get(k,0)) for k in ['inserted','running','waiting','teleports','collisions']}}
     report['not_inserted']=report['scheduled']-report['inserted']
     report['mean_depart_delay_s']=sum(float(t.attrib['departDelay']) for t in trips)/len(trips) if len(trips) else None
-    meta={'scenario':geometry['name']+' · historical-count baseline','seed':seed,
-          'scientific_status':'HISTORICAL COUNTS · THROUGH-ONLY · UNCALIBRATED',
+    meta={'scenario':geometry['name']+' · '+config.get('demand_mode','historical-count baseline'),'seed':seed,
+          'scientific_status':'HISTORICAL COUNTS · '+('RAMPS / INFERRED EXITS' if ramp_plan and config['demand_mode']=='ramps' else 'THROUGH-ONLY')+' · UNCALIBRATED',
           'sumo_version':subprocess.check_output([binary('sumo'),'--version'],text=True).splitlines()[0],
           'source_date':config['date'],'start_local':start.isoformat(),'replay_start_local':(start+timedelta(seconds=config['replay_begin_seconds'])).isoformat(),
           'sample_seconds':config['sample_seconds'],'replay_offset_seconds':config['replay_begin_seconds'],
           'network_sha256':digest(network),'observations_sha256':digest(observations),'demand_sha256':digest(demand),
-          'scenario_config_sha256':digest(scenario/'historical.json'),
+          'scenario_config_sha256':digest(config_file),
           'source_provenance':bundle['provenance'],'report':report,'routes':chosen_routes,
           'assumptions':[config['demand_scope'],'Entry flow is counted at internal model boundaries, not unconstrained upstream travel demand.',
                          'Departures are uniformly randomized within each five-minute bin with fixed seed; counts rounded to nearest integer.',
@@ -151,8 +159,27 @@ def run(scenario, observations, output, seed=None):
                          'Timestamp interval start follows documented PeMS schema; source-local clock used without UTC alignment.',
                          '15-minute warm-up is an assumption; sensitivity not tested.',
                          'Lane-count/ambiguous bindings excluded; remaining bindings are provisional.',
-                         'No fitting, no held-out validation, no inferred causal explanation for observed slowdown.'],
+                         'No driver-parameter calibration or held-out validation; any demand-estimation stations are excluded from scores.'],
           'command':cmd[1:], 'vehicle_columns':['id','x_m','y_m','speed_m_s','angle_deg','lane','lane_position_m','acceleration_m_s2']}
+    if ramp_plan:
+        dest={v['id']:v['destination'] for v in departures}
+        report['ramp_exit_completions']={sid:sum(dest.get(t.attrib['id'])==sid for t in trips) for sid in [e['station'] for e in config['ramp_events'] if e['kind']=='exit']}
+        report['ramp_origin_completed']=sum(t.attrib['id'].split('-')[0][1:] not in config['input_stations'] for t in trips)
+        # Unfinished trip records make per-origin accounting exact at the run cutoff.
+        seen={t.attrib['id'] for t in all_trips if float(t.attrib['depart'])>=0}
+        report['origins']=[]
+        for sid in dict.fromkeys(v['origin'] for v in departures):
+            assigned={v['id'] for v in departures if v['origin']==sid}
+            report['origins'].append({'station':sid,'scheduled':len(assigned),
+                'inserted':len(assigned & seen),
+                'completed':sum(t.attrib['id'] in assigned for t in trips)})
+        if sum(o['inserted'] for o in report['origins']) != report['inserted']:
+            raise ValueError('Per-origin insertion audit does not reconcile with SUMO summary')
+        for event in ramp_plan['bindings']:
+            edge=net.getEdge(event['edges'][0])
+            event['network_xy']=sumolib.geomhelper.positionAtShapeOffset(edge.getShape(),min(20,edge.getLength()))
+        meta['ramp_plan']=ramp_plan
+        meta['report']=report
     payload={'meta':meta,'frames':frames,'lanes':[{'id':l.getID(),'shape':l.getShape(),'width':l.getWidth(),'name':e.getName(),'speed':l.getSpeed()} for e in net.getEdges() for l in e.getLanes()],
              'context_labels':geometry.get('context_labels',[]),'context_roads':roads(scenario/'source.osm.xml',net),
              'comparison':{'stations':bindings,'records':comparison,'metrics':diagnostics(comparison),'inputs':inputs,
@@ -171,6 +198,7 @@ def main():
     p.add_argument('--observations',type=Path,required=True)
     p.add_argument('--output',type=Path,default=Path('runs/historical'))
     p.add_argument('--seed',type=int)
-    a=p.parse_args();run(a.scenario,a.observations,a.output,a.seed)
+    p.add_argument('--config',type=Path)
+    a=p.parse_args();run(a.scenario,a.observations,a.output,a.seed,a.config)
 
 if __name__=='__main__':main()

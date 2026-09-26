@@ -1,0 +1,11 @@
+# Mission 004 — Ramps and boundaries
+
+Build an explicit ramp-demand scenario and compare it against Mission 003 without tuning driver parameters. Visible outcome: actual SUMO vehicles enter, merge, leave, and can be inspected in a separately hosted replay. Preserve prior scenarios.
+
+1. Extend the frozen Pinole network west: the existing Appian westbound entrance ends before its freeway merge. Check connectivity from on-ramps to matching-direction mainline and from mainline to exits; do not use nearest metadata coordinate alone.
+2. Record explicit scenario-local ramp bindings and offsets, with evidence from metadata name/type/direction, graph topology and OSM geometry. Check lane differences; distinguish model route bindings from surveyed detector locations.
+3. Use existing measured on-ramp counts. One off-ramp reports counts; other exits require declared assumptions. Estimate missing exit fractions by flow balance over the training window where observable, explicitly ignoring unknown storage changes only as an approximation. Bound estimates and report residuals. Do not treat fitted flow-balance stations as independent validation.
+4. Run a comparable through-only control on the same expanded network and entry conditions, then ramp-aware demand with the same driver model and seed. Report differences, backlog, departures, ramp completions and detector diagnostics. Add a bounded low/high missing-exit sensitivity check; these are assumptions, not statistical confidence intervals.
+5. Inspect adjacent downstream observations for possible external congestion. No claim that a slow boundary proves causality; do not impose measured speed as a calibrated mechanism. Record what additional network/data would be required.
+
+No calibration or held-out validation in this phase. Sunday remains reserved; more weekday archives can follow. Acceptance requires connected ramp routes, actual ramp traversals, no invented measurements, visible inferred/missing labels, reproducible runs, baseline comparison, and updated project record. Network extension, source hashes, station choices, flow-balance assumptions and score exclusions belong in provenance. If observations cannot identify an exit, use an explicit bounded scenario rather than a falsely precise estimate.
