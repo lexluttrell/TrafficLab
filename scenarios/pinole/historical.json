@@ -1,0 +1,13 @@
+{
+  "date": "2026-09-24",
+  "start_local": "07:30:00",
+  "duration_seconds": 3600,
+  "warmup_seconds": 900,
+  "replay_begin_seconds": 1800,
+  "replay_end_seconds": 2400,
+  "sample_seconds": 2,
+  "seed": 42,
+  "input_stations": ["400865", "401084"],
+  "excluded_stations": {"400313": "ambiguous edge and 0% observed", "401081": "lane count mismatch and upstream of model entry"},
+  "demand_scope": "Through-traffic only; ramps carry no injected or exiting traffic. Diagnostic baseline, not historical reconstruction."
+}
