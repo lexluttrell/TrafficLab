@@ -1,0 +1,72 @@
+{
+  "assigned_before_import": true,
+  "assignment_basis": "User conversation on 2026-09-26 before new file uploads",
+  "dates": [
+    {
+      "date": "2026-09-17",
+      "filename": "d04_text_station_5min_2026_09_17.txt.gz",
+      "role": "reserved validation",
+      "sha256": "35b5a40cb6a3961daedaa10991e365288255962211571bce968bf20f41922d8b",
+      "compressed_bytes": 29512173,
+      "uncompressed_bytes": 154462806,
+      "gzip_integrity": "passed through trailer",
+      "first_timestamp": "09/17/2026 00:00:00",
+      "traffic_patterns_examined": false
+    },
+    {
+      "date": "2026-09-22",
+      "filename": "d04_text_station_5min_2026_09_22.txt.gz",
+      "role": "development",
+      "sha256": "9168a592fb65851cae4ce1fd972d0668d6765be8d5660d665f3ec3b2835ea016",
+      "compressed_bytes": 29399093,
+      "uncompressed_bytes": 154316073,
+      "gzip_integrity": "passed through trailer",
+      "first_timestamp": "09/22/2026 00:00:00",
+      "traffic_patterns_examined": true,
+      "review_scope": "Import quality and required input availability only; no simulation or fitting yet",
+      "import_summary": {
+        "stations": 28,
+        "records": 8064,
+        "missing_station_intervals": 0,
+        "identical_duplicates_removed": 0,
+        "required_demand_stations": [
+          "400301",
+          "400430",
+          "400865",
+          "401084",
+          "401230",
+          "401480",
+          "407261",
+          "407262",
+          "407268",
+          "407295",
+          "407298",
+          "420689"
+        ],
+        "required_window_rows": 144,
+        "expected_required_window_rows": 144,
+        "missing_required_flow": 0,
+        "partly_observed_required_rows": 24
+      }
+    },
+    {
+      "date": "2026-09-23",
+      "filename": "d04_text_station_5min_2026_09_23.txt.gz",
+      "role": "reserved validation",
+      "sha256": "a5f04f0894316bf4056c7dbf675170d50aaa917a4a4dc42d562ed9495102b8dd",
+      "compressed_bytes": 29497217,
+      "uncompressed_bytes": 154345525,
+      "gzip_integrity": "passed through trailer",
+      "first_timestamp": "09/23/2026 00:00:00",
+      "traffic_patterns_examined": false
+    }
+  ],
+  "existing_dates": {
+    "2026-09-24": "exploratory development; already repeatedly examined",
+    "2026-09-13": "Sunday reserved; not fitted"
+  },
+  "holdout_rule": "September 17 and 23: only gzip integrity, hashes and first timestamp checked. Do not inspect traffic patterns, fit parameters, or choose configurations against these dates before freezing the model and evaluation protocol.",
+  "metadata_file": "d04_text_meta_2026_04_08.txt",
+  "metadata_sha256": "e120c2a205a82c3b1b425ed0378c7bb06dfac86671e38c2ca551a66cfeb77ee8",
+  "mapping_note": "Existing metadata supports import, not verification of current detector locations or lane geometry."
+}
