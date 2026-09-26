@@ -22,10 +22,10 @@ Risks: external map availability; incomplete lane/connection tags and netconvert
 - Historical replay, calibration, held-out validation, driver-population experiments and geographic generalization remain later milestones.
 
 ## Status
-Mission 001 is complete and publicly runnable at https://lexluttrell.github.io/TrafficLab/. Source is maintained at https://github.com/lexluttrell/TrafficLab. The user enabled main /docs publication on 2026-09-25. Hosted browser playback and vehicle inspection have been verified. Historical transfer notes below describe resolved blockers. Mission 002 is now authorized; its importer and observations viewer are in progress, with real-data access blocked.
+Mission 001 is complete and publicly runnable at https://lexluttrell.github.io/TrafficLab/. Source is maintained at https://github.com/lexluttrell/TrafficLab. The user enabled main /docs publication on 2026-09-25. Hosted browser playback and vehicle inspection have been verified. Historical transfer notes below describe resolved blockers. Mission 002 has a runnable real-data historical inspection slice. Both source files are imported and reviewed; certified detector-to-edge mapping and timestamp anchoring remain unresolved. See the latest verification entry below.
 
 ## Scientific status and limitations
-No measured traffic observations or calibration. OSM geometry is mapped data, not a surveyed lane inventory; conversion may infer lane widths, connections and speed limits. All demand and driver parameters are synthetic/default assumptions. No counterfactual inference is justified. Finite corridor boundaries and through-only initial demand omit local origin/destination behavior.
+Real reported PeMS detector observations are now imported separately; no simulation calibration or held-out validation has been performed. OSM geometry is mapped data, not a surveyed lane inventory; conversion may infer lane widths, connections and speed limits. All demand and driver parameters are synthetic/default assumptions. No counterfactual inference is justified. Finite corridor boundaries and through-only initial demand omit local origin/destination behavior.
 
 ## Next milestone and research questions
 Next (not implemented here): historical PeMS observations and replay foundations. Resolve station coverage, quality flags, temporal alignment, demand identifiability and calibration/held-out day split before performance claims. Investigate ramp demand and lane inventory before corridor calibration.
@@ -64,3 +64,21 @@ Access blocker: official historical PeMS downloads require a free approved accou
 Schema reference: SANDAG/PeMS-Datasets at e6e125f65e45afdeceaebc4d6d0b5c92effa9e47. Eight importer tests passed using clearly fabricated fixtures, covering missing versus zero, partial/imputed flags, invalid occupancy, gzip inputs, duplicates, future metadata, DST transition rejection, station filtering and timestamp grid checks. Remaining acceptance requires genuine inputs and review of data usage/redistribution terms before public data publication.
 
 Browser verification passed for the empty state, local JSON import, missing-interval display, preserved zero counts, partial-observation flags, repeated retina-canvas rendering and mobile width. No page errors. A fabricated QA file was used only in local testing and was not added to the repository or Pages export.
+
+
+## Real-data review and local viewer — 2026-09-25
+Input traffic date: 2026-09-24; metadata effective date: 2026-04-08 (169 days older). User supplied both original Clearinghouse files. The district archive reads through its gzip trailer, has 1,124,640 records, 3,905 station IDs, 288 timestamps, District 4 only, and no malformed field counts. Selected I-80 scenario coverage: 21 stations, 6,048 records, 288 rows per station, zero missing timestamp rows, zero conflicting or identical selected duplicates.
+
+Source SHA-256:
+- Observations: eda05caee29a85f92beab6bcfc7273170e481a983074d7b4b42ef9bd72a31fbe
+- Metadata: e120c2a205a82c3b1b425ed0378c7bb06dfac86671e38c2ca551a66cfeb77ee8
+
+Quality: 12 mainline stations have speed/count values at all 288 timestamps. Six mainline stations report 100% observed, five report 50–75%, and 400313 reports 0% throughout despite supplied speed/count values. All nine ramps lack speed values; six have counts, three (407263, 407296, 407305) have no flow or occupancy values. Missing ramp speed alone is not diagnosed as equipment failure. Preserved flags total 2,592 partial/imputed rows, 2,592 missing-speed rows, 864 missing-flow rows and 864 missing-occupancy rows (categories overlap).
+
+Spatial review: all 12 mainline candidates lie within 7.5 m of direction-compatible motorway geometry. Station 401081 has a PeMS four-lane vs SUMO five-lane mismatch. Station 400313 has nearby alternative edges (2.0 vs 3.9 m). These remain provisional, and no `sumo_edge` has been certified. Ramps are shown at their reported locations with no invented edge mapping. Network hash accompanies every reviewed bundle. The reusable review module supports N/S/E/W headings; using a heading filter is an acknowledged approximation for curved networks.
+
+Verification: eight importer regression tests pass. Two independent imports of the original inputs produced byte-identical normalized JSON; repeated spatial review likewise produced identical bytes. Chromium tested the actual 6,048-record standalone bundle and the public-viewer code with local file import: 21 station choices, 0%-observed warning, missing ramp fields, station-table selection, time inspection, lane-count flag, and mobile width all pass with zero page errors. Full-page visual review confirms map, quality table and four charts render. No claim of empirical simulation validation follows from these checks.
+
+Deliverable: self-contained HTML with real observations and normalized JSON for local loading in the hosted inspector. Public repository includes source/viewer code and this review summary, not the raw or normalized archives. No redistribution permission has been inferred from successful account access.
+
+Current milestone: Mission 002 historical inspection slice delivered; complete historical-to-simulation alignment is still pending. Remaining research: confirm source timestamp anchor/local clock convention; verify lane inventory and ramp topology against dated evidence; assess whether newer metadata exists; establish public redistribution terms. These do not prevent local inspection but must be resolved before fitting detector-aligned simulation results. Next planned milestone remains calibration and held-out validation, not started. One day's data is insufficient for a held-out day split.

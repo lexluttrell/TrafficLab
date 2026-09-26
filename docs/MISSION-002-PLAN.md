@@ -52,3 +52,17 @@ Replace the dates with the actual observation date and metadata effective date. 
 Field order checked against SANDAG's PeMS processing implementation at commit `e6e125f65e45afdeceaebc4d6d0b5c92effa9e47`: https://github.com/SANDAG/PeMS-Datasets/blob/e6e125f65e45afdeceaebc4d6d0b5c92effa9e47/python/extract_parquet.py and `archive/python/main.py`. This is a primary implementation reference, not a substitute for checking actual District 4 exports. The current adapter retains station aggregate fields plus unparsed original per-lane fields; it does not yet expose lane-level observations. UTC conversion assumes Los Angeles local civil time. Source timestamp anchoring remains unverified and is labeled in every bundle. No time alignment with simulated traffic is claimed yet.
 
 Tests cover zero vs missing values, invalid numeric values, partial-observation flags, gzip input, duplicate conflicts, date and station filtering, future metadata, off-grid timestamps and DST transitions. Browser checks use fabricated fixtures only, kept out of the published observations page.
+
+## Real-data delivery — 2026-09-25
+Both user-supplied files are available and successfully imported: District 4 Station 5-Minute for 2026-09-24, and Station Metadata dated 2026-04-08. Access is no longer the blocker. The dated metadata is 169 days older than the traffic day; no claim of unchanged detector inventory is made.
+
+Review and package an imported bundle:
+
+```sh
+python -m trafficlab.data.review --input runs/observations/observations.json --network scenarios/pinole/network.net.xml --output runs/observations/reviewed.json
+python scripts/package-observations.py --input runs/observations/reviewed.json --output runs/observations/TrafficLab-September-24.html
+```
+
+The resulting HTML opens directly with the observations embedded. Alternatively load `reviewed.json` in the hosted observations page. Both remain local; raw inputs and normalized historical data are not committed to the public repository. Public redistribution terms have not been established, so the viewer code is published separately from the user's data.
+
+The historical inspection slice now includes map selection, a station-quality table, speed/count/occupancy/percent-observed plots, source timestamp inspection and provenance. Mainline edge candidates are direction-filtered spatial inferences; `sumo_edge` remains null. Ramp matches remain unresolved because coordinates and local heading alone cannot reliably distinguish parent freeway direction and on/off topology. These are explicit limits, not substitutes for actual road matching.
