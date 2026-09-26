@@ -102,3 +102,7 @@ Open `http://localhost:8765/historical.html`. For a complete local multi-page si
 ## Mission 005: navigation, flow layers and working merges
 
 [Explore the current corridor](https://lexluttrell.github.io/TrafficLab/ramps.html). Zoom at a location, jump to a ramp or detector, color roads by local mean speed, and color cars relative to nearby traffic. Two explicitly assumed acceleration lanes allow all 14,407 cars to enter and complete their trips. The original blocked-ramp replay remains linked. Geometry is not field-verified and the model is uncalibrated. [Definitions, results and reproduction](docs/MISSION-005.md).
+
+## Mission 006: merge robustness
+
+[Inspect the six-case study](https://lexluttrell.github.io/TrafficLab/ramps.html#robustness): 100/150/200 m lane assumptions, each with seeds 42 and 43. The panel separates operational completion from detector accuracy and shows per-origin travel/stopped times. [Design and reproduction](docs/MISSION-006.md). The replay stays at 150 m / seed 42; selecting a study row changes diagnostics only.

@@ -109,3 +109,7 @@ Implemented the authorized ramp/boundary phase; see [run notes](MISSION-004.md) 
 ## Mission 005 — 2026-09-26
 
 User requested corridor zoom, separate local road-speed and relative car-speed colors, and a functional end-to-end corridor. Implemented anchored wheel/pinch, buttons, keyboard and location jumps; directed-edge 100 m snapshot means and leave-one-out car comparisons with explicit sparse-data handling. The new assumed 150 m acceleration lanes admit all 14,407 scheduled vehicles; 13,998 complete by 08:30, the remaining 409 finish by 08:32:51.4. No collisions/teleports. Scoring retains the same 18 independent eastbound station-bins (count WAPE 7.16%, speed MAE 4.53 mph). Drain period is separate and excluded. Prior replay retained at ramps-before.html. See [Mission 005](MISSION-005.md) for assumptions, verification and the next field/data gates.
+
+## Mission 006 — 2026-09-26
+
+Completed the predeclared 100/150/200 m × seeds 42/43 merge sensitivity study. All six runs insert and complete all 14,407 trips; every-step collision and teleport checks pass. Shared departure schedules within seeds and the same 18-bin scoring mask are enforced. The 150 m / seed 42 rerun exactly reproduces the current animation and detector records. The site publishes all cases with per-origin travel/waiting percentiles and explicitly keeps the replay fixed. One truncated XML attempt was rejected and rerun unchanged. This supports limited operational robustness, not physical geometry verification or multi-day validation. See [Mission 006](MISSION-006.md).
