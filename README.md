@@ -116,3 +116,11 @@ The road-level view uses recorded SUMO positions, interpolated headings and exis
 Internal lane connections are exported from matching frozen networks, keyed by network SHA-256. After a network geometry change, regenerate the display asset with `python scripts/export-driver-geometry.py`.
 
 Camera geometry checks: `node tests/test-driver-view.cjs`. Existing flow-color checks: `node tests/test-flow-layer.cjs`.
+
+## Encounter lab: real observations before behavioral fitting
+
+[Open the encounter lab](https://lexluttrell.github.io/TrafficLab/encounters.html). Inspect four real NGSIM I-80 lane-change encounters with native 0.1-second playback, synchronized speed/gap plots, leader-change markers, coverage and measurement flags. These are measured 2005 Emeryville trajectories, separate from the SUMO replay.
+
+The bounded five-minute audit contains 317,579 rows and 607 vehicles. Of 209 stable mainline transitions, 132 have continuous actor/follower tracks for ±10 seconds, and 11 for ±30 seconds. Three examples follow the original coverage-based selection; a documented exploratory amendment adds one repeated-change example. No behavioral effect or driver parameter was fitted. I-24 longer-duration access is pending after HTTP 502 responses.
+
+[Study protocol](docs/ENCOUNTER-PROTOCOL.md) · [Audit, limitations and reproduction](docs/ENCOUNTER-AUDIT.md). PeMS validation dates remain reserved. Reproduce the analysis using the commands in the audit; the original protocol, acquisition hashes, source metadata and amendment are versioned under `research/encounters/`.

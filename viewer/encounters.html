@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TrafficLab · Encounter lab</title><link rel="stylesheet" href="encounters.css"></head>
+<body>
+<header><a class="brand" href="ramps.html">TRAFFICLAB <span>/ ENCOUNTER LAB</span></a><a href="ramps.html">Back to the simulator ↗</a></header>
+<main>
+  <div class="intro"><div><span class="eyebrow">REAL TRAJECTORIES · EMERYVILLE, I‑80 · 2005</span><h1>Watch the interaction.<br><span>Question the interpretation.</span></h1><p>Follow a real lane change, inspect the surrounding traffic, and see exactly what the measurements can support.</p></div><div class="stage"><span class="status-dot"></span> Development study<br><small>Observed trajectories · no fitted driver behavior</small></div></div>
+  <div class="notice"><strong>These are recorded vehicle tracks.</strong> Lane changes shown here are screening candidates. This study has not established weaving intent, aggression, or a psychological effect.</div>
+  <section class="audit-strip" aria-label="Sample audit"><div><b id="n-vehicles">—</b><span>vehicles in the sample</span></div><div><b id="n-events">—</b><span>stable mainline lane changes</span></div><div><b id="n-pairs">—</b><span>pairs with 10 s before & after</span></div><div><b id="n-long">—</b><span>pairs with 30 s before & after</span></div></section>
+  <section class="workspace" aria-label="Encounter inspection">
+    <div class="road-panel">
+      <div class="panel-heading"><div><span class="eyebrow">01 / THE ROAD</span><h2>One encounter, in context</h2></div><label>Encounter <select id="encounter" disabled aria-label="Choose encounter"></select></label></div>
+      <div class="legend"><span class="actor-key">● Lane-changing vehicle</span><span class="follower-key">● Destination-lane follower</span><span>● Nearby traffic</span></div>
+      <canvas id="road" aria-label="Top-down schematic replay of measured vehicle positions"></canvas>
+      <p class="road-note">Traffic moves upward. Lane spacing is expanded for readability; longitudinal distances use a consistent scale. No interpolation across missing frames.</p>
+      <div class="controls"><button id="play" disabled>Play</button><button id="event-zero" disabled>At the lane change</button><label>Rate <select id="rate" aria-label="Playback rate"><option value="0.5">½×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label><output id="clock">—</output></div>
+      <input id="timeline" aria-label="Seconds relative to lane change" type="range" min="-30" max="30" step="0.1" value="0" disabled>
+      <div class="timeline-labels"><span id="time-start">Before</span><span>0 = lane-label transition</span><span id="time-end">After</span></div>
+      <p id="load-status" role="status" aria-live="polite">Loading the audit and observed encounter…</p>
+    </div>
+    <div class="measurement-panel">
+      <div class="panel-heading"><div><span class="eyebrow">02 / THE MEASUREMENTS</span><h2>Look beyond the animation</h2></div></div>
+      <div class="metrics"><div><b id="current-speed">—</b><span>follower speed · mph</span></div><div><b id="current-gap">—</b><span>net bumper gap · m</span></div><div><b id="current-headway">—</b><span>net time gap · s</span></div></div>
+      <p id="current-leader" class="plot-note"></p>
+      <div class="plot"><h3>Reported speed <span>mph · actor & follower</span></h3><canvas id="speed-chart" aria-label="Reported speed over time. Click to seek." tabindex="0"></canvas></div>
+      <div class="plot"><h3>Follower’s bumper gap <span>meters · to its current leader</span></h3><canvas id="gap-chart" aria-label="Net bumper gap over time. Click to seek." tabindex="0"></canvas></div>
+      <div class="plot"><h3>Follower’s time gap <span>seconds · hidden below 2 m/s</span></h3><canvas id="headway-chart" aria-label="Net following-time gap over time. Click to seek." tabindex="0"></canvas></div>
+      <p class="plot-note">The white marker follows playback. Amber dotted markers on gap plots show a change of leader. Missing measurements break the line. Rose points mark gap samples that fail a quality screen. Observed gap is not a driver’s preferred gap.</p>
+    </div>
+  </section>
+  <section class="detail-grid"><div class="detail-card"><span class="eyebrow">03 / CHECK THE EVIDENCE</span><h2 id="event-title">Encounter details</h2><p id="event-description"></p><div id="coverage"></div><p id="gap-coverage"></p><p id="quality-now" role="status"></p><details><summary>Quality flags across this window</summary><div id="window-flags"></div></details></div><div class="detail-card"><span class="eyebrow">04 / WHAT THIS MEANS</span><h2>A useful observation needs a comparison.</h2><p>A cut-in can shrink a gap immediately. That alone does not show that the following driver became more aggressive. We need later comparable gap choices, suitable comparison vehicles, and independent recordings.</p><p id="sample-conclusion"></p><a href="ENCOUNTER-PROTOCOL.md">Read the study protocol →</a><p><a id="download" href="encounter-data/index.json" download>Download this encounter’s data</a> · <a href="encounter-data/index.json">Full audit</a></p></div></section>
+  <details class="provenance"><summary>Source, measurement definitions & reproducibility</summary><p>US DOT / FHWA NGSIM, eastbound I‑80 in Emeryville, April 13, 2005. This is a five-minute development sample from a roughly 500 m observation site, not today’s traffic or a calibrated simulation. Three examples were selected by the predeclared coverage/time/ID rule. A fourth repeated-change example was added under a documented exploratory amendment, using the same ranking within that cohort. No selection uses the behavioral response.</p><p>Positions refer to vehicle front centers. Bumper gap subtracts the leader’s length from front-to-front spacing. Time gap divides that distance by follower speed. Missing leaders and invalid geometry produce missing values. Speeds are source estimates; acceleration and jerk effects have not been analyzed.</p><p id="clock-note"></p><p><a href="https://www.fhwa.dot.gov/publications/research/operations/06137/">FHWA source description</a> · <a href="ENCOUNTER-AUDIT.md">Audit findings & reproduction</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/">Data: CC BY-SA 3.0</a></p><p>Derived display subset by TrafficLab: unit conversion, exact deduplication, conflicting-key quarantine, gap derivation and event screening. The source API’s license object states CC BY-SA 3.0; its Common Core metadata also lists 4.0. Both declarations are preserved with the acquisition record.</p></details>
+</main><footer>TRAFFICLAB <span>Evidence before explanation.</span></footer>
+<script src="encounters.js"></script></body></html>

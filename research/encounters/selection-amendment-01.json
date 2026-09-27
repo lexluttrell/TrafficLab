@@ -1,0 +1,9 @@
+{
+  "date": "2026-09-27",
+  "stage": "After initial audit and primary example selection; all data remain development only",
+  "reason": "The three predeclared highest-coverage examples are single-change actors. Add one separately labeled repeated-change example so the user can inspect the target screening class.",
+  "primary_selection_unchanged": true,
+  "supplemental_selection": "Among inspectable events whose actor already made a stable mainline transition in the previous 30 seconds, choose maximal minimum actor/follower 30-second coverage, then earliest timestamp and actor ID. Exclude already selected examples. Do not rank by gap or speed response.",
+  "count": 1,
+  "inference": "No behavioral inference. This amendment is exploratory and is not represented as a pre-data decision. Retrospective nearby-repeat counts may include future transitions; the supplemental example requires an earlier transition."
+}

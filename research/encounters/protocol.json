@@ -1,0 +1,39 @@
+{
+  "version": "0.1.0",
+  "date": "2026-09-27",
+  "status": "development feasibility; no causal estimate or behavioral calibration",
+  "primary_dataset": "I-24 MOTION actual vehicle trajectories (access pending)",
+  "fallback_dataset": "FHWA NGSIM I-80, first recording, first 300 seconds only",
+  "source_api": "https://data.transportation.gov/resource/8ect-6jqj.json",
+  "sample_seconds": 300,
+  "roles": {
+    "ngsim_first_300_seconds": "development only, including every encounter inspected",
+    "ngsim_remaining_recordings": "unopened; not an independent-day validation set",
+    "i24": "assign development and untouched validation days before inspecting trajectories",
+    "pems": "preserve scenarios/data-split.json; September 17 and 23 remain unopened"
+  },
+  "candidate_rules": {
+    "lane_dwell_seconds": 2.0,
+    "repeated_changes_within_seconds": 30.0,
+    "repeated_changes_minimum": 2,
+    "mainline_lanes": [1, 2, 3, 4, 5, 6],
+    "minimum_before_seconds": 10.0,
+    "minimum_after_seconds": 10.0,
+    "long_window_seconds_each_side": 30.0,
+    "mainline_changes_are_not_proven_discretionary": true
+  },
+  "quality_rules": {
+    "expected_step_ms": 100,
+    "display_gap_limit_ms": 150,
+    "position_speed_discrepancy_mps": 5.0,
+    "negative_net_gap_is_invalid": true,
+    "time_gap_minimum_speed_mps": 2.0,
+    "preserve_raw_values": true,
+    "publish_no_acceleration_or_jerk_effect_estimates": true
+  },
+  "selection": "Enumerate all stable lane transitions in the bounded sample. Select at most three inspectable actor/follower encounters by pre/post coverage, then earliest timestamp and actor ID. Never rank by a measured behavioral response. Include eligibility failures in audit counts.",
+  "hypothesis": "After an encounter with repeated discretionary lane changing, subsequent following-gap choices may differ from context-matched unexposed behavior. Sign, prevalence, size and duration are unknown.",
+  "primary_outcome_future": "Change in net following-time gap in comparable following opportunities, with direct cut-in geometry, leader changes, density and baseline behavior accounted for; observed gaps are not desired headway parameters.",
+  "inference_gate": "No estimate in this feasibility slice. Require quality-qualified exposure, comparison cases, adequate pre/post history, power/precision analysis, whole-encounter/day splits, pretrend/placebo checks and sensitivity to unmeasured confounding before an observational association is reported. Association alone cannot establish emotion or intervention causality.",
+  "model_gate": "Compare conventional and history-dependent behavior on held-out interactions, free-running groups and corridor metrics. Define practical error tolerances from development measurement uncertainty before opening validation. Preserve uncertainty and possible null effects. Do not fit driver behavior to compensate for geometry, demand or boundary errors."
+}

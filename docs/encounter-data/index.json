@@ -1,0 +1,245 @@
+{
+  "schema_version": 1,
+  "status": "development feasibility only; no causal analysis or fitted behavior",
+  "sample_seconds": 300,
+  "recording": "FHWA NGSIM I-80 eastbound, Emeryville, April 13 2005",
+  "source": "https://data.transportation.gov/resource/8ect-6jqj.json",
+  "source_start_ms": 1113433135300,
+  "clock_note": "Elapsed source time is used. Earliest API timestamp converts to 15:58:55.3 PDT; FHWA names the first period 16:00\u201316:15. Absolute clock alignment has not been independently resolved.",
+  "identity_namespace": "ngsim:i80:1113433135300",
+  "counts": {
+    "source_rows": 317579,
+    "retained_rows": 317579
+  },
+  "vehicles": 607,
+  "observed_duration_seconds": {
+    "min": 1.0,
+    "median": 57.4,
+    "p90": 73.6,
+    "max": 119.1
+  },
+  "track_discontinuities": 0,
+  "row_flags": {
+    "leader_unavailable": 19625,
+    "speed_below_time_gap_threshold": 6526,
+    "negative_net_gap": 915,
+    "position_speed_disagreement": 26,
+    "leader_lane_mismatch": 9
+  },
+  "candidate_funnel": {
+    "raw_lane_label_transitions": 307,
+    "stable_mainline_transitions": 209,
+    "inspectable_10s_pairs": 132,
+    "continuous_30s_pairs": 11,
+    "transitions_with_nearby_repeat": 88,
+    "inspectable_repeated_10s_pairs": 63,
+    "non_mainline_transitions": 62,
+    "inspectable_prior_repeat_10s_pairs": 32,
+    "unstable_or_discontinuous_transitions": 36,
+    "follower_relation_unverified": 4
+  },
+  "encounters": [
+    {
+      "file": "encounter-1.json.gz",
+      "sha256_uncompressed": "a6c90583581f8cda1dc8a46f443839c9fbaa04edebbc271f04b4092d6f73e042",
+      "actor": 21,
+      "follower": 41,
+      "sample_time_s": 48.8,
+      "repeated_candidate": false,
+      "prior_repeat": false,
+      "nearby_actor_changes_s": [
+        0.0
+      ],
+      "selection_role": "predeclared coverage example",
+      "old_lane": 5,
+      "new_lane": 6,
+      "coverage": {
+        "actor_10s": {
+          "seconds_each_side": 10,
+          "expected_samples": 201,
+          "present_samples": 201,
+          "continuous": true,
+          "usable_time_gap_samples": 101
+        },
+        "actor_30s": {
+          "seconds_each_side": 30,
+          "expected_samples": 601,
+          "present_samples": 601,
+          "continuous": true,
+          "usable_time_gap_samples": 301
+        },
+        "follower_10s": {
+          "seconds_each_side": 10,
+          "expected_samples": 201,
+          "present_samples": 201,
+          "continuous": true,
+          "usable_time_gap_samples": 181
+        },
+        "follower_30s": {
+          "seconds_each_side": 30,
+          "expected_samples": 601,
+          "present_samples": 601,
+          "continuous": true,
+          "usable_time_gap_samples": 491
+        }
+      }
+    },
+    {
+      "file": "encounter-2.json.gz",
+      "sha256_uncompressed": "c7c95a3f012e1fc8f95607125257074750f733f2d74223fccae2cb6843d73255",
+      "actor": 50,
+      "follower": 66,
+      "sample_time_s": 53.2,
+      "repeated_candidate": false,
+      "prior_repeat": false,
+      "nearby_actor_changes_s": [
+        0.0
+      ],
+      "selection_role": "predeclared coverage example",
+      "old_lane": 3,
+      "new_lane": 4,
+      "coverage": {
+        "actor_10s": {
+          "seconds_each_side": 10,
+          "expected_samples": 201,
+          "present_samples": 201,
+          "continuous": true,
+          "usable_time_gap_samples": 201
+        },
+        "actor_30s": {
+          "seconds_each_side": 30,
+          "expected_samples": 601,
+          "present_samples": 601,
+          "continuous": true,
+          "usable_time_gap_samples": 510
+        },
+        "follower_10s": {
+          "seconds_each_side": 10,
+          "expected_samples": 201,
+          "present_samples": 201,
+          "continuous": true,
+          "usable_time_gap_samples": 201
+        },
+        "follower_30s": {
+          "seconds_each_side": 30,
+          "expected_samples": 601,
+          "present_samples": 601,
+          "continuous": true,
+          "usable_time_gap_samples": 551
+        }
+      }
+    },
+    {
+      "file": "encounter-3.json.gz",
+      "sha256_uncompressed": "4e66af4c62fdecb5d6194d7013536a4d899b8846234cd6464bdf497eda493705",
+      "actor": 31,
+      "follower": 45,
+      "sample_time_s": 55.3,
+      "repeated_candidate": false,
+      "prior_repeat": false,
+      "nearby_actor_changes_s": [
+        0.0
+      ],
+      "selection_role": "predeclared coverage example",
+      "old_lane": 5,
+      "new_lane": 6,
+      "coverage": {
+        "actor_10s": {
+          "seconds_each_side": 10,
+          "expected_samples": 201,
+          "present_samples": 201,
+          "continuous": true,
+          "usable_time_gap_samples": 201
+        },
+        "actor_30s": {
+          "seconds_each_side": 30,
+          "expected_samples": 601,
+          "present_samples": 601,
+          "continuous": true,
+          "usable_time_gap_samples": 542
+        },
+        "follower_10s": {
+          "seconds_each_side": 10,
+          "expected_samples": 201,
+          "present_samples": 201,
+          "continuous": true,
+          "usable_time_gap_samples": 198
+        },
+        "follower_30s": {
+          "seconds_each_side": 30,
+          "expected_samples": 601,
+          "present_samples": 601,
+          "continuous": true,
+          "usable_time_gap_samples": 499
+        }
+      }
+    },
+    {
+      "file": "encounter-4.json.gz",
+      "sha256_uncompressed": "4ac2903a784140803c38e5098fdd8fff9f6f01beec3bccdfbca32bc56d6524f5",
+      "actor": 3355,
+      "follower": 36,
+      "sample_time_s": 55.9,
+      "repeated_candidate": true,
+      "prior_repeat": true,
+      "nearby_actor_changes_s": [
+        -8.2,
+        0.0,
+        15.2,
+        25.1
+      ],
+      "selection_role": "supplemental repeated-change example (amendment 01)",
+      "old_lane": 2,
+      "new_lane": 3,
+      "coverage": {
+        "actor_10s": {
+          "seconds_each_side": 10,
+          "expected_samples": 201,
+          "present_samples": 201,
+          "continuous": true,
+          "usable_time_gap_samples": 0
+        },
+        "actor_30s": {
+          "seconds_each_side": 30,
+          "expected_samples": 601,
+          "present_samples": 601,
+          "continuous": true,
+          "usable_time_gap_samples": 149
+        },
+        "follower_10s": {
+          "seconds_each_side": 10,
+          "expected_samples": 201,
+          "present_samples": 201,
+          "continuous": true,
+          "usable_time_gap_samples": 101
+        },
+        "follower_30s": {
+          "seconds_each_side": 30,
+          "expected_samples": 601,
+          "present_samples": 601,
+          "continuous": true,
+          "usable_time_gap_samples": 152
+        }
+      }
+    }
+  ],
+  "protocol_sha256": "a1e7a3970aa5d475291a04f33b74e924593ef0e1d2859fef529dcdd6bd9c695a",
+  "limitations": [
+    "Five-minute development sample; not independent-day validation.",
+    "Stable lane changes are candidates, not proof of weaving, intent or aggression.",
+    "Selected cases are direct actor/follower interactions; no unexposed comparison cohort.",
+    "Raw tracking/speed measurements have not been independently reconstructed.",
+    "No causal effect, desired-headway parameter or simulation behavior has been estimated.",
+    "I-24 longer-duration sample is pending; its access page returned HTTP 502."
+  ],
+  "attribution": {
+    "name": "US DOT / FHWA NGSIM",
+    "dataset_url": "https://data.transportation.gov/resource/8ect-6jqj.json",
+    "license": "CC BY-SA 3.0 (API license object)",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "metadata_note": "Common Core metadata separately names CC BY-SA 4.0; both source declarations are retained in the source metadata.",
+    "changes": "Bounded extraction, exact deduplication, conflict quarantine, SI conversion, derived gaps, event screening and display subsets by TrafficLab, 2026-09-27."
+  },
+  "selection_amendment_sha256": "34a5a1051a931d11e06dac955e9c1df05500717baf83fb049d507e6d6b7806ca",
+  "inspectable_prior_repeat_unique_actors": 25
+}
