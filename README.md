@@ -4,6 +4,8 @@ Real I-80 geometry around Pinole, actual SUMO microscopic vehicle dynamics, and 
 
 ## Shareable browser demo
 
+**New: [One-car experiment playground](https://lexluttrell.github.io/TrafficLab/drivers.html)** — adjust the target's desired pace and following preference, watch its recorded SUMO trip, inspect gaps and lane changes, and compare paired outcomes across three seeds. Nine precomputed settings, with data diagnostics and an explicit uncalibrated status. See [protocol and reproduction](docs/DRIVER-EXPERIMENT.md).
+
 GitHub Pages target: https://lexluttrell.github.io/TrafficLab/
 
 Publish from branch `main`, folder `/docs` in repository Settings → Pages. After regenerating a run, use `python scripts/export-pages.py`, commit the docs changes and push. Pages serves the same real SUMO replay; it does not execute Python or SUMO on GitHub’s web server.
